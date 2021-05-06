@@ -1,17 +1,17 @@
 <?php
 session_start();
-//if (!isset($_SESSION['user'])) {
-//    if (isset($_COOKIE['user'])) {
-//        $_SESSION['user'] = $_COOKIE['user'];
-//    }else{
-//        header('location:main.php');
-//        exit();
-//    }
-//}
-//if (isset($_SESSION['rem'])) {
-//    setcookie('user',$_SESSION['user'],time()+3600);
-//    unset($_SESSION['rem']);
-//}
+if (!isset($_SESSION['user'])) {
+    if (isset($_COOKIE['user'])) {
+        $_SESSION['user'] = $_COOKIE['user'];
+    }else{
+        header('location:main.php');
+        exit();
+    }
+}
+if (isset($_SESSION['rem'])) {
+    setcookie('user',$_SESSION['user'],time()+3600);
+    unset($_SESSION['rem']);
+}
 
 ?>
 <?php
@@ -34,13 +34,12 @@ class Profile
     private $longitude;
     private $latitude;
     private $db_con;
-    private $user_id;
     function __construct()
     {
-//		if (!isset($_POST['type'])) {
-//			echo "<script>alert('This page does not exist!');history.go(-1);</script>";
-//			exit();
-//		}
+		if (!isset($_POST['type'])) {
+			echo "<script>alert('This page does not exist!');history.go(-1);</script>";
+			exit();
+		}
         /**
          * debug dump data
          */
@@ -184,24 +183,10 @@ class Profile
 
     public function update_action()
     {
-        $this->populate_data();
-//        $this->username = 'test03';
-//        $this->email = 'test02@example.org';
-//        $this->password = '123123';
-//        $this->confirm_password = '123123';
-//        $this->dob = '2001-01-01';
-//        $this->ssn = '1231231233';
-//        $this->gender = 1;
-//        $this->phone = '1112223344';
-//        $this->address = '149 9th St, San Francisco, CA, 94103';
-//        $this->max_distance = 25;
-//        $_SESSION['user'] = 76;
-
-
         $this->username = $_POST['username'];
         $this->password = $_POST['password'];
         $this->confirm_password = $_POST['confirm'];
-        $this->dob = strtotime($_POST['dob']);
+        $this->dob = $_POST['dob'];
         $this->gender = $_POST['gender'];
         $this->phone = $_POST['phone'];
         $this->address = $_POST['address'];
@@ -211,7 +196,7 @@ class Profile
         $this->captcha = $_POST['code'];
 
 
-//		$this->check_captcha();
+		$this->check_captcha();
         $this->check_password();
         $this->check_name_format();
 //      $this->check_email_format();
@@ -220,28 +205,27 @@ class Profile
         $this->db_con->autocommit(false);
         try {
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
+            /*
+             * update user table
+             */
             $stmt = $this->db_con->prepare(
                 "UPDATE user 
-                        SET user_name=?, user_password=?
+                        SET user_password=?
                         WHERE user_id = ?;");
-            $stmt->bind_param('ssi', $this->email, $this->password, $_SESSION['user']);
+            $stmt->bind_param('si', $this->password, $_SESSION['user']);
             $stmt->execute();
-
             /* update patient table*/
             $stmt = $this->db_con->prepare("UPDATE patient SET patient_name=?
-                    , birth=?, patient_address=?, patient_phone=?
-                    , patient_email=?,  max_distance=?
-                 , patient_longitude=?, patient_latitude=?
+                    , birth=?, patient_address=?, patient_phone=?,  max_distance=?
+                    , patient_longitude=?, patient_latitude=?
                     WHERE patient_id = ?;");
             /* bind parameter*/
-            $stmt->bind_param('sssssiddi', $this->username
-                , $this->dob, $this->address, $this->phone, $this->email
+            $stmt->bind_param('ssssiddi', $this->username
+                , $this->dob, $this->address, $this->phone
                 , $this->max_distance, $this->longitude, $this->latitude, $_SESSION['user']);
             $stmt->execute();
             $this->db_con->autocommit(true);
             $stmt->store_result();
-
             /* If code reaches this point without errors then commit the data in the database */
         }catch (mysqli_sql_exception $exception) {
             $this->db_con->rollback();
@@ -249,9 +233,10 @@ class Profile
         }
         if ($stmt->affected_rows !== 0) {
             $stmt->close();
-            echo "<script>alert('Your profile has been updated.');location.href = 'index.php';</script>";
+            echo "<script>alert('Your profile has been updated.');location.href = '../index.php';</script>";
             exit();
         }else{
+            echo "<script>alert('Nothing updated');location.href = '../index.php';</script>";
             echo $this->db_con->error;
             exit();
         }
@@ -264,8 +249,8 @@ $profile_user = new Profile();
 if ($_POST['type'] == 'display'){
     $profile_user->populate_data();
 }
-//if ($_POST['type'] == 'all'){
-//$profile_user->update_action();
-//}
+if ($_POST['type'] == 'all'){
+    $profile_user->update_action();
+}
 
 

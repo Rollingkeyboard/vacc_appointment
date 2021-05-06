@@ -205,8 +205,7 @@ $_SESSION['user'] = 3;
                               <span>Click to Switch</span>
                           </div>
                       </div>
-                      <!--                    default check all inputs-->
-<!--                      <input type="hidden" name="user_id" value="">-->
+                      <!--default check all inputs-->
                       <input type="hidden" name="type" value="all">
                   </div>
 

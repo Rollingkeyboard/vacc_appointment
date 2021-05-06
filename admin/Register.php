@@ -151,7 +151,7 @@ class Register
 		$this->username = $_POST['username'];
 		$this->password = $_POST['password'];
 		$this->confirm_password = $_POST['confirm'];
-        $this->dob = ($_POST['dob']);
+        $this->dob = $_POST['dob'];
         $this->gender = $_POST['gender'];
         $this->phone = $_POST['phone'];
         $this->address = $_POST['address'];
