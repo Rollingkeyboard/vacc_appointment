@@ -12,7 +12,7 @@ session_start();
 //  setcookie('user',$_SESSION['user'],time()+3600);
 //  unset($_SESSION['rem']);
 //}
-$_SESSION['user'] = 36;
+$_SESSION['user'] = 3;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,14 +22,7 @@ $_SESSION['user'] = 36;
   <body>
   <!-- navi -->
   <?php require_once 'public/layouts/nav.php' ?>
-  <style>
-      table {
-          background-color: #181818;
-      }
-      table, .table {
-          color: #fff;
-      }
-  </style>
+
   <!-- page content -->
       <div class="container">
         <div class="content">
@@ -102,6 +95,7 @@ $_SESSION['user'] = 36;
       </div>
     </div>
   <!-- /.container -->
+  <!-- profile -->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="profile" aria-labelledby="myLargeModalLabel">
       <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -109,13 +103,13 @@ $_SESSION['user'] = 36;
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title" id="myModalLabel">Your profile</h4>
               </div>
-              <form action="admin/Register.php" method="post" accept-charset="utf-8" class="form-horizontal">
+              <form action="admin/Profile.php" method="post" accept-charset="utf-8" class="form-horizontal">
                   <div class="modal-body">
 
                       <div class="form-group">
                           <label for="username" class="col-sm-4 control-label">Name:</label>
                           <div class="col-sm-6">
-                              <input type="text" class="form-control" name="username" id="username" minlength="2" maxlength="20" placeholder="Full Name" required="">
+                              <input type="text" class="form-control" name="username" value="" id="username" minlength="2" maxlength="20" placeholder="Full Name" required="">
                           </div>
                           <!-- error message -->
                           <h6 style="color: red;" id="dis_un"></h6>
@@ -150,7 +144,6 @@ $_SESSION['user'] = 36;
                           <div class="col-sm-6">
                               <input type="text" class="form-control" name="ssn" id="ssn" readonly="readonly" placeholder="SSN" required="">
                               <!--                                 <--  minlength="10" maxlength="10" -->
-
                           </div>
                           <h6 style="color: red;" id="dis_ssn"></h6>
                       </div>
@@ -213,6 +206,7 @@ $_SESSION['user'] = 36;
                           </div>
                       </div>
                       <!--                    default check all inputs-->
+<!--                      <input type="hidden" name="user_id" value="">-->
                       <input type="hidden" name="type" value="all">
                   </div>
 

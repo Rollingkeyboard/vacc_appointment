@@ -30,7 +30,18 @@
               </div>
               <form action="admin/Register.php" method="post" accept-charset="utf-8" class="form-horizontal">
                 <div class="modal-body">
-
+                    <div class="form-group">
+                        <label for="user_type" class="col-sm-4 control-label">User Type:</label>
+                        <div class="col-sm-3">
+                            <label class="checkbox-inline">
+                                <input type="radio" name="user_type" id="reg_pa" value="1" checked> Patient
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" name="user_type" id="reg_pd" value="0"> Provider
+                            </label>
+                        </div>
+                    </div>
+                    
                   <div class="form-group">
                     <label for="username" class="col-sm-4 control-label">Name:</label>
                     <div class="col-sm-6">
@@ -43,7 +54,7 @@
                   <div class="form-group">
                     <label for="email" class="col-sm-4 control-label">Email:</label>
                     <div class="col-sm-6">
-                      <input type="email" class="form-control" name="email" id="email" placeholder="Email" required="">
+                      <input type="email" class="form-control" name="email" id="reg_email" placeholder="Email" required="">
                     </div>
                     <h6 style="color: red;" id="dis_em"></h6>
                   </div>
@@ -78,10 +89,10 @@
                         <label for="gender" class="col-sm-4 control-label">Gender:</label>
                         <div class="col-sm-3">
                             <label class="checkbox-inline">
-                                <input type="radio" name="gender" id="yes" value="1" checked> Male
+                                <input type="radio" name="gender" id="reg_gender_m" value="1" checked> Male
                             </label>
                             <label class="checkbox-inline">
-                                <input type="radio" name="gender" id="optionsRadios4" value="0"> Female
+                                <input type="radio" name="gender" id="reg_gender_f" value="0"> Female
                             </label>
                         </div>
                     </div>
@@ -122,7 +133,7 @@
                   <div class="form-group">
                     <label for="code" class="col-sm-4 control-label"> Verification Code :</label>
                     <div class="col-sm-6">
-                      <input type="text" class="form-control" name="code" id="code" placeholder="verification code" required="" maxlength="4" size="100">
+                      <input type="text" class="form-control" name="code" id="reg_code" placeholder="verification code" required="" maxlength="4" size="100">
                     </div>
                   </div>
                   <div class="form-group">
@@ -138,7 +149,7 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Close</button>
                   <input type="reset" class="btn btn-warning" value ="reset" />
-                  <button type="submit" class="btn btn-primary" id="reg">register</button>
+                  <button type="submit" class="btn btn-primary" id="reg">Register</button>
                 </div>
               </form>
               </div>
@@ -156,10 +167,25 @@
               <form action="admin/Login.php" method="post" accept-charset="utf-8" class="form-horizontal">
                 <div class="modal-body">
 
+                    <div class="form-group">
+                        <label for="user_type" class="col-sm-4 control-label">User Type:</label>
+                        <div class="col-sm-3">
+                            <label class="checkbox-inline">
+                                <input type="radio" name="user_type" id="log_pa" value="0" checked> Patient
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" name="user_type" id="log_pd" value="1"> Provider
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="radio" name="user_type" id="log_ad" value="2"> Admin
+                            </label>
+                        </div>
+                    </div>
+
                   <div class="form-group">
                     <label for="email" class="col-sm-4 control-label">Email:</label>
                     <div class="col-sm-6">
-                      <input type="email" class="form-control" name="email" id="email" placeholder="Email" required="">
+                      <input type="email" class="form-control" name="email" id="log_email" placeholder="Email" required="">
                     </div>
                   </div>
 
@@ -171,25 +197,13 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="user_type" class="col-sm-4 control-label">User Type:</label>
-                    <div class="col-sm-3">
-                        <label class="checkbox-inline">
-                            <input type="radio" name="user_type" id="yes" value="1" checked> Patient
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="radio" name="user_type" id="optionsRadios4" value="0"> Provider
-                        </label>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
                     <label for="remember_me" class="col-sm-4 control-label">Remember Me:</label>
                     <div class="col-sm-3">
                       <label class="checkbox-inline">
-                        <input type="radio" name="remember_me" id="yes" value="1" checked> Yes
+                        <input type="radio" name="remember_me" id="rem_yes" value="1" checked> Yes
                       </label>
                       <label class="checkbox-inline">
-                        <input type="radio" name="remember_me" id="optionsRadios4" value="0"> No
+                        <input type="radio" name="remember_me" id="rem_no" value="0"> No
                       </label>
                     </div>
                   </div>
@@ -197,7 +211,7 @@
                   <div class="form-group">
                     <label for="code" class="col-sm-4 control-label"> verification code :</label>
                     <div class="col-sm-6">
-                      <input type="text" class="form-control" name="code" id="code" placeholder="verification code" required="" maxlength="4">
+                      <input type="text" class="form-control" name="code" id="log_code" placeholder="verification code" required="" maxlength="4">
                     </div>
                   </div>
 
@@ -207,7 +221,6 @@
                         <span>Click to Switch</span>
                     </div>
                   </div>
-                  
                 </div>
 
                 <div class="modal-footer">

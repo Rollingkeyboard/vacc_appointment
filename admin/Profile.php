@@ -30,10 +30,11 @@ class Profile
     private $phone;
     private $address;
     private $max_distance;
-    private $verification_code;
+    private $captcha;
     private $longitude;
     private $latitude;
     private $db_con;
+    private $user_id;
     function __construct()
     {
 //		if (!isset($_POST['type'])) {
@@ -44,28 +45,27 @@ class Profile
          * debug dump data
          */
         //*******************************************************************************
-//        $this->username = 'test01';
+//        $this->username = 'test02';
 //		$this->email = 'test01@example.org';
-//		$this->password = '112233';
-//		$this->confirm_password = '112233';
+//		$this->password = '123123';
+//		$this->confirm_password = '123123';
 //		$this->dob = '2001-01-01';
 //        $this->ssn = '1231231233';
 //        $this->gender = 1;
-//        $this->phone = '1112223334';
+//        $this->phone = '1112223344';
 //        $this->address = '149 9th St, San Francisco, CA, 94103';
 //        $this->max_distance = 25;
-//        $this->verification_code = $_POST['code'];
+//        $this->captcha = $_POST['code'];
 //        $this->longitude = -122;
 //        $this->latitude = 37;
         //*******************************************************************************
         include '../config.php';
-//        include '../get_geocode.php';
+        include '../get_geocode.php';
         $this->db_con = new mysqli(DB_HOST, DB_USER, DB_PWD, DB_NAME);
     }
 
     public function populate_data(){
-//        if ($_POST['type'] == 'display' && $_POST['id']) {
-            $_SESSION['user'] = 36;
+        if ($_POST['type'] == 'display') {
             $sql_query = "SELECT patient_id,patient_email
                         ,patient_name,patient_id, patient_name, ssn, birth
                         , patient_address, patient_phone, patient_email, priority_level
@@ -79,10 +79,10 @@ class Profile
             $data = array(
                 "message"   => "Get user profile",
                 "status" => 1,
-                "sql_result" => $row,
+                "sql_result" => $row
             );
             echo json_encode($data);
-//        }
+        }
     }
     public function check_email()
     {
@@ -90,7 +90,6 @@ class Profile
             if(strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
 
                 $this->email = $_POST['email'];
-//                $this->email = 'mmurray@example.org';
                 $stmt= $this->db_con->prepare("SELECT user_id FROM user WHERE user_name = ?;");
                 $stmt->bind_param('s', $this->email);
                 $stmt->execute();
@@ -105,14 +104,13 @@ class Profile
                     echo '0';
                 }
                 $stmt->close();
-                $this->db_con->close();
             }
             else{
-                echo "check email No XHR";
+                echo "profile check email No XHR";
             }
         }
         else{
-            echo "check email NO AJAX";
+            echo "profile check email NO AJAX";
         }
     }
 
@@ -121,7 +119,6 @@ class Profile
         if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) ) {
             if(strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ){
                 $this->ssn = $_POST['ssn'];
-//                $this->ssn = '3326574114';
                 $stmt= $this->db_con->prepare("SELECT patient_id FROM patient WHERE ssn = ?;");
                 $stmt->bind_param('s', $this->ssn);
                 $stmt->execute();
@@ -135,20 +132,19 @@ class Profile
                     echo '0';
                 }
                 $stmt->close();
-                $this->db_con->close();
             }
             else{
-                echo "check ssn No XHR";
+                echo "profile check ssn No XHR";
             }
         }
         else{
-            echo "check ssn NO AJAX";
+            echo "profile check ssn NO AJAX";
         }
     }
 
-    public function check_verification_code()
+    public function check_captcha()
     {
-        if ($this->verification_code != $_SESSION['code']) {
+        if ($this->captcha != $_SESSION['code']) {
             echo "<script>alert('Verification code is incorrect. Please enter again.');history.go(-1);</script>";
             exit();
         }
@@ -188,15 +184,21 @@ class Profile
 
     public function update_action()
     {
-        /*
-         *  update_user_table_array -> TABLE user
-         *  update_array -> TABLE patient/provider
-         */
-        $update_user_table_array = array();
-        $update_array = array();
+        $this->populate_data();
+//        $this->username = 'test03';
+//        $this->email = 'test02@example.org';
+//        $this->password = '123123';
+//        $this->confirm_password = '123123';
+//        $this->dob = '2001-01-01';
+//        $this->ssn = '1231231233';
+//        $this->gender = 1;
+//        $this->phone = '1112223344';
+//        $this->address = '149 9th St, San Francisco, CA, 94103';
+//        $this->max_distance = 25;
+//        $_SESSION['user'] = 76;
+
 
         $this->username = $_POST['username'];
-        $this->verification_code = $_POST['code'];
         $this->password = $_POST['password'];
         $this->confirm_password = $_POST['confirm'];
         $this->dob = strtotime($_POST['dob']);
@@ -204,12 +206,15 @@ class Profile
         $this->phone = $_POST['phone'];
         $this->address = $_POST['address'];
         $this->max_distance = $_POST['max_distance'];
-//		$this->check_verification_code();
-        $this->check_email();
-        $this->check_ssn();
+        $this->longitude = 110;
+        $this->latitude = 42.4;
+        $this->captcha = $_POST['code'];
+
+
+//		$this->check_captcha();
         $this->check_password();
         $this->check_name_format();
-        $this->check_email_format();
+//      $this->check_email_format();
 
         /* Start transaction */
         $this->db_con->autocommit(false);
@@ -220,17 +225,18 @@ class Profile
                 "UPDATE user 
                         SET user_name=?, user_password=?
                         WHERE user_id = ?;");
-            $stmt->bind_param('ssi', $this->email, $this->password,$_SESSION['user']);
+            $stmt->bind_param('ssi', $this->email, $this->password, $_SESSION['user']);
             $stmt->execute();
 
-            /* insert into patient table*/
-            $stmt = $this->db_con->prepare("UPDATE patient SET patient_name=?, ssn=?
+            /* update patient table*/
+            $stmt = $this->db_con->prepare("UPDATE patient SET patient_name=?
                     , birth=?, patient_address=?, patient_phone=?
-                    , patient_email=?,  max_distance=?, patient_longitude=?, patient_latitude=?
+                    , patient_email=?,  max_distance=?
+                 , patient_longitude=?, patient_latitude=?
                     WHERE patient_id = ?;");
             /* bind parameter*/
-            $stmt->bind_param('ssssssiddi', $this->username
-                , $this->ssn, $this->dob, $this->address, $this->phone, $this->email
+            $stmt->bind_param('sssssiddi', $this->username
+                , $this->dob, $this->address, $this->phone, $this->email
                 , $this->max_distance, $this->longitude, $this->latitude, $_SESSION['user']);
             $stmt->execute();
             $this->db_con->autocommit(true);
@@ -243,8 +249,7 @@ class Profile
         }
         if ($stmt->affected_rows !== 0) {
             $stmt->close();
-            $this->db_con->close();
-            echo "<script>alert('Update Successfully. Please log in.');location.href = '/index.php';</script>";
+            echo "<script>alert('Your profile has been updated.');location.href = 'index.php';</script>";
             exit();
         }else{
             echo $this->db_con->error;
@@ -254,23 +259,13 @@ class Profile
 }
 
 $profile_user = new Profile();
-//$profile_user->populate_data();
-
-switch ($_POST['type']) {
-    case 'display':
-        $profile_user->populate_data();
-        break;
-    case 'ssn':
-        $profile_user->check_ssn();
-        break;
-    case 'email':
-        $profile_user->check_email();
-        break;
-    case 'all':
-        $profile_user->update_action();
-        break;
-    default:
-        echo "To do nothing";
-        break;
+//$this->populate_data();
+//$_SESSION['user'] = 36;
+if ($_POST['type'] == 'display'){
+    $profile_user->populate_data();
 }
+//if ($_POST['type'] == 'all'){
+//$profile_user->update_action();
+//}
+
 

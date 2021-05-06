@@ -9,14 +9,20 @@ class Login
 	public $password;
 	public $remember_me;
 	public $code;
-	function __construct()
+    /**
+     * @var mysqli
+     */
+    private $db_conn;
+
+    function __construct()
 	{
 		if (!isset($_POST['login'])) {
 			echo "<script>alert('The page does not exist!');history.go(-1);</script>";
 			exit();
 		}
 		include '../config.php';
-
+        //verify db
+        $this->db_conn = new mysqli(DB_HOST,DB_USER,DB_PWD,DB_NAME);
         $this->user_type = $_POST['user_type'];
 		$this->email = $_POST['email'];
 		$this->password = $_POST['password'];
@@ -45,7 +51,7 @@ class Login
 		//verify password
 		if (!trim($this->password) == '') {
 			$strlen = strlen($this->password);
-			if ($strlen <= 6 || $strlen > 20) {
+			if ($strlen < 6 || $strlen > 20) {
 				echo "<script>alert('Password\'s length is illegal. Please enter again.');history.go(-1);</script>";
 				exit();
 			}
@@ -61,24 +67,19 @@ class Login
 		}
 	}
 
-	public function check_verification_code()
+	public function check_captcha_code()
 	{
-		//verification code
+		//captcha code
 		if ($this->code != $_SESSION['code']) {
-			echo "<script>alert('Verification code is not correct.please try again!');history.go(-1);</script>";
+			echo "<script>alert('Captcha is not correct.please try again!');history.go(-1);</script>";
 			exit();
 		}
 	}
 
 	public function check_email()
 	{
-		//verify db
-        $mysqli = new mysqli(DB_HOST,DB_USER,DB_PWD,DB_NAME);
-        if ($mysqli -> connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
-            exit();
-        }
-        $stmt= $mysqli->prepare("
+
+        $stmt= $this->db_conn->prepare("
                             SELECT user_id, role_id FROM user WHERE user_name = ? and user_password = ?;");
         $stmt->bind_param('ss', $this->email, $this->password);
         $stmt->execute();
@@ -86,7 +87,6 @@ class Login
 		if ($stmt->num_rows === 0) {
 			echo "<script>alert('Username/Password is incorrect. Please try again.');history.go(-1);</script>";
             $stmt->close();
-            $mysqli->close();
 			exit();
 		}else{
             /* bind result variables */
@@ -94,7 +94,6 @@ class Login
             /* fetch value */
             $stmt->fetch();
             $stmt->close();
-            $mysqli->close();
 			$_SESSION['user'] = $uid;
             /**
              * Using user_type to redirect to patient or provider profile page
@@ -111,7 +110,7 @@ class Login
 
 	public function login_action()
 	{
-		$this->check_verification_code();
+		$this->check_captcha_code();
 		$this->check_email_format();
 		$this->check_password();
 		$this->check_email();

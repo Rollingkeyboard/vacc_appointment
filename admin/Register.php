@@ -14,36 +14,36 @@ class Register
     private $phone;
     private $address;
     private $max_distance;
-	private $verification_code;
+	private $captcha;
     private $longitude;
     private $latitude;
     private $db_con;
 	function __construct()
 	{
-//		if (!isset($_POST['type'])) {
-//			echo "<script>alert('This page does not exist!');history.go(-1);</script>";
-//			exit();
-//		}
+		if (!isset($_POST['type'])) {
+			echo "<script>alert('This page does not exist!');history.go(-1);</script>";
+			exit();
+		}
         /**
          * debug dump data
          */
         //*******************************************************************************
-//        $this->username = 'test01';
-//		$this->email = 'test01@example.org';
+//        $this->username = 'test02';
+//		$this->email = 'test02@example.org';
 //		$this->password = '112233';
 //		$this->confirm_password = '112233';
 //		$this->dob = '2001-01-01';
-//        $this->ssn = '1231231233';
+//        $this->ssn = '1231231222';
 //        $this->gender = 1;
 //        $this->phone = '1112223334';
 //        $this->address = '149 9th St, San Francisco, CA, 94103';
 //        $this->max_distance = 25;
-//        $this->verification_code = $_POST['code'];
+//        $this->captcha = $_POST['code'];
 //        $this->longitude = -122;
 //        $this->latitude = 37;
         //*******************************************************************************
 		include '../config.php';
-//        include '../get_geocode.php';
+        include '../get_geocode.php';
 		$this->db_con = new mysqli(DB_HOST, DB_USER, DB_PWD, DB_NAME);
 	}
 
@@ -51,9 +51,7 @@ class Register
 	{
 		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) ) {
 		    if(strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
-
 		        $this->email = $_POST['email'];
-//                $this->email = 'mmurray@example.org';
                 $stmt= $this->db_con->prepare("SELECT user_id FROM user WHERE user_name = ?;");
                 $stmt->bind_param('s', $this->email);
                 $stmt->execute();
@@ -68,14 +66,13 @@ class Register
                     echo '0';
                 }
                 $stmt->close();
-                $this->db_con->close();
 		    }
 		    else{
-		    	echo "check email No XHR";
+		    	echo "register check email No XHR";
 		    }
 		}
 		else{
-			echo "check email NO AJAX";
+			echo "register check email NO AJAX";
 		}
 	}
 
@@ -84,7 +81,6 @@ class Register
 		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) ) {
 		    if(strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' ){
 		        $this->ssn = $_POST['ssn'];
-//                $this->ssn = '3326574114';
                 $stmt= $this->db_con->prepare("SELECT patient_id FROM patient WHERE ssn = ?;");
                 $stmt->bind_param('s', $this->ssn);
                 $stmt->execute();
@@ -98,20 +94,19 @@ class Register
                     echo '0';
                 }
                 $stmt->close();
-                $this->db_con->close();
 		    }
 		    else{
-		    	echo "check ssn No XHR";
+		    	echo "register check ssn No XHR";
 		    }
 		}
         else{
-			echo "check ssn NO AJAX";
+			echo "register check ssn NO AJAX";
 		}
 	}
 
-	public function check_verification_code()
+	public function check_captcha()
 	{
-		if ($this->verification_code != $_SESSION['code']) {
+		if ($this->captcha != $_SESSION['code']) {
 			echo "<script>alert('Verification code is incorrect. Please enter again.');history.go(-1);</script>";
 			exit();
 		}
@@ -152,18 +147,33 @@ class Register
 	public function register_action()
 	{
 		$this->email = $_POST['email'];
+        $this->ssn = $_POST['ssn'];
 		$this->username = $_POST['username'];
-		$this->verification_code = $_POST['code'];
 		$this->password = $_POST['password'];
 		$this->confirm_password = $_POST['confirm'];
-        $this->dob = strtotime($_POST['dob']);
+        $this->dob = ($_POST['dob']);
         $this->gender = $_POST['gender'];
         $this->phone = $_POST['phone'];
         $this->address = $_POST['address'];
         $this->max_distance = $_POST['max_distance'];
-//		$this->check_verification_code();
-        $this->check_email();
-		$this->check_ssn();
+        $this->captcha = $_POST['code'];
+
+//        $this->username = 'test03';
+//		$this->email = 'test03@example.org';
+//		$this->password = '112233';
+//		$this->confirm_password = '112233';
+//		$this->dob = '2001-01-01';
+//        $this->ssn = '1231231224';
+//        $this->gender = 1;
+//        $this->phone = '1112223334';
+//        $this->address = '149 9th St, San Francisco, CA, 94103';
+//        $this->max_distance = 25;
+
+
+        $this->longitude = -122;
+        $this->latitude = 37;
+
+		$this->check_captcha();
 		$this->check_password();
         $this->check_name_format();
 		$this->check_email_format();
@@ -198,8 +208,7 @@ class Register
             }
 		if ($stmt->affected_rows !== 0) {
             $stmt->close();
-            $this->db_con->close();
-			echo "<script>alert('Register Successfully. Please log in.');location.href = '/main.php';</script>";
+			echo "<script>alert('Register Successfully. Please log in.');location.href = '../main.php';</script>";
 			exit();
 		}else{
 			echo $this->db_con->error;
@@ -209,7 +218,7 @@ class Register
 }
 
 $register_user = new Register();
-//$register_patient->check_ssn();
+//$register_user->register_action();
 
 switch ($_POST['type']) {
 	case 'ssn':

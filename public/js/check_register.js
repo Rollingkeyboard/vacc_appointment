@@ -32,11 +32,13 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#email').blur(function() {
+	$('#reg_email').blur(function() {
 		if ($(this).val() !== '') {
 			let reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
 			if (reg.test($(this).val())) {
-				$.post('admin/Register.php', {email: $(this).val(),type: 'email'}, function(data, textStatus, xhr) {
+				$.post('admin/Register.php',
+					{email: $(this).val(),type: 'email'}
+					, function(data, textStatus, xhr) {
 					// alert("Data: " + data + "\nStatus: " + textStatus);
 					if (textStatus === 'success') {
 						console.log(data);

@@ -1,6 +1,14 @@
 body {
   padding-top: 50px;
 }
+
+table {
+   background-color: #181818;
+}
+table, .table {
+  color: #fff;
+}
+
 .content {
   padding: 40px 15px;
   text-align: center;

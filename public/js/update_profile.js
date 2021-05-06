@@ -12,7 +12,8 @@ $(document).ready(function() {
             data: {type:'display'},
             success: function (response) {
                 if(response.status) {
-                    console.log(response.message);
+                    // console.log(response.message);
+                    // $('#user_id').val(response.sql_result.patient_id);
                     $('#email').val(response.sql_result.patient_email);
                     $('#username').val(response.sql_result.patient_name);
                     $('#ssn').val(response.sql_result.ssn);
@@ -22,7 +23,6 @@ $(document).ready(function() {
                     $('#max_distance').val(response.sql_result.max_distance);
                     $('#password').val(response.sql_result.user_password);
                     $('#confirm').val(response.sql_result.user_password);
-
                 }
             }
         });
