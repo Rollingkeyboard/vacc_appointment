@@ -17,3 +17,6 @@ table, .table {
 .hidden {
     display: none;
 }
+.glyphicon-pencil:before {
+    content: "\270f";
+}

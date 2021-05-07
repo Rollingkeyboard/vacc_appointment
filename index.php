@@ -27,42 +27,38 @@ $_SESSION['user'] = 3;
       <div class="container">
         <div class="content">
             <div class="starter-template">
-            <h1>Hello, <?php echo $_SESSION['user']; $uid = $_SESSION['user'];?> Welcome To Vaccination Appointment Page </h1>
+            <h1 id="wellcome_header"></h1>
                 <div class="jumbotron">
                       <div class="container">
                           <div class="row">
-                              <h2>Your preferred time slot are below.</h2>
-                              <?php
-                              include_once("config.php");
-//                              $uid = 1;
-//                              $sqlQuery = "SELECT ppt.ppt_id,  ts.weekday, ts.time_block, 'NA' AS status
-//                                                        FROM patient_preferred_time AS ppt
-//                                                            JOIN time_slot ts on ppt.t_id = ts.t_id AND ppt.w_id = ts.w_id
-//                                                        WHERE patient_id = '" . $uid . "'";
-                              $sqlQuery = "SELECT ppt_id, patient_id, w_id, t_id, 'NA' AS status FROM patient_preferred_time
-                                        WHERE patient_id = '" . $uid . "';";
-                              $resultSet = mysqli_query($mysqli, $sqlQuery) or die("database error:". mysqli_error($mysqli));
-                              ?>
+                              <h2 id="user_type_header"></h2>
+<!--                              --><?php
+//                              include_once("config.php");
+////                              $uid = 1;
+////                              $sqlQuery = "SELECT ppt.ppt_id,  ts.weekday, ts.time_block, 'NA' AS status
+////                                                        FROM patient_preferred_time AS ppt
+////                                                            JOIN time_slot ts on ppt.t_id = ts.t_id AND ppt.w_id = ts.w_id
+////                                                        WHERE patient_id = '" . $uid . "'";
+//                              $sqlQuery = "SELECT ppt_id, patient_id, w_id, t_id, 'NA' AS status
+//                                        FROM patient_preferred_time
+//                                        WHERE patient_id = '" . $_SESSION['user'] . "';";
+//                              $resultSet = mysqli_query($mysqli, $sqlQuery) or die("database error:". mysqli_error($mysqli));
+//                              ?>
                               <table id="editableTable" class="table table-bordered">
-                                  <thead>
-                                  <tr>
-                                      <th>Id</th>
-                                      <th>User Id</th>
-                                      <th>Weekday</th>
-                                      <th>Time Block</th>
-                                      <th>Status</th>
-                                  </tr>
+                                  <thead id="assign_to_table_head">
+
                                   </thead>
-                                  <tbody>
-                                  <?php while( $record = mysqli_fetch_assoc($resultSet) ) { ?>
-                                      <tr id="<?php echo $record ['ppt_id']; ?>">
-                                          <td><?php echo $record ['ppt_id']; ?></td>
-                                          <td><?php echo $record ['patient_id']; ?></td>
-                                          <td><?php echo $record ['w_id']; ?></td>
-                                          <td><?php echo $record ['t_id']; ?></td>
-                                          <td><?php echo $record ['status']; ?></td>
-                                      </tr>
-                                  <?php } ?>
+                                  <tbody id="main_table">
+<!--                                  --><?php //while( $record = mysqli_fetch_assoc($resultSet) ) { ?>
+<!--                                      <tr id="--><?php //echo $record ['ppt_id']; ?><!--">-->
+<!--                                          <td>--><?php //echo $record ['ppt_id']; ?><!--</td>-->
+<!--                                          <td>--><?php //echo $record ['patient_id']; ?><!--</td>-->
+<!--                                          <td>--><?php //echo $record ['w_id']; ?><!--</td>-->
+<!--                                          <td>--><?php //echo $record ['t_id']; ?><!--</td>-->
+<!--                                          <td>--><?php //echo $record ['status']; ?><!--</td>-->
+<!--                                          -->
+<!--                                      </tr>-->
+<!--                                  --><?php //} ?>
                                   </tbody>
                               </table>
                           </div>
@@ -230,6 +226,7 @@ $_SESSION['user'] = 3;
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
 <!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
   <script src="public/js/update_profile.js"></script>
+  <script src="public/js/appointment_time.js"></script>
 <!--  <script src="public/js/table_add_row.js"></script>-->
   <script src="plugin/bootstable.js"></script>
   <script src="public/js/editable.js"></script>

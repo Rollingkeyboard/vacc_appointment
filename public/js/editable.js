@@ -1,6 +1,7 @@
 $( document ).ready(function() {
 	let uid = null;
 	let insert_new_row = false;
+
 	$.ajax({
 		type: 'POST',
 		async: 'false',
@@ -17,10 +18,10 @@ $( document ).ready(function() {
 	  columnsEd: "2,3,4",
 	  onEdit: function(columnsEd) {
 		 // console.log("===edit=="+(this));
-		  console.log("===edit=="+(insert_new_row));
+		 //  console.log("===edit=="+(insert_new_row));
 		  if (insert_new_row === false){
-			  console.log(columnsEd[0].childNodes[0]);
-			  console.log(columnsEd[0].childNodes[1]);
+			  // console.log(columnsEd[0].childNodes[0]);
+			  // console.log(columnsEd[0].childNodes[1]);
 			  let record_id = columnsEd[0].childNodes[1].innerHTML;
 			  let user_id = columnsEd[0].childNodes[3].innerHTML;
 			  let user_weekday = columnsEd[0].childNodes[5].innerHTML;
@@ -40,12 +41,12 @@ $( document ).ready(function() {
 				  }
 			  });
 		  }else{
-			  console.log(columnsEd[0].childNodes[0]);
-			  console.log(columnsEd[0].childNodes[1]);
-			  console.log(columnsEd[0].childNodes[2]);
-			  console.log(columnsEd[0].childNodes[3]);
-			  console.log(columnsEd[0].childNodes[4]);
-			  console.log(columnsEd[0].childNodes[5]);
+			  // console.log(columnsEd[0].childNodes[0]);
+			  // console.log(columnsEd[0].childNodes[1]);
+			  // console.log(columnsEd[0].childNodes[2]);
+			  // console.log(columnsEd[0].childNodes[3]);
+			  // console.log(columnsEd[0].childNodes[4]);
+			  // console.log(columnsEd[0].childNodes[5]);
 			  let record_id = columnsEd[0].childNodes[0].innerHTML;
 			  let user_id = columnsEd[0].childNodes[1].innerHTML;
 			  let user_weekday = columnsEd[0].childNodes[2].innerHTML;

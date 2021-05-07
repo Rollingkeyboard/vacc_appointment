@@ -4,6 +4,7 @@ session_start();
   Handle request session_id
 */
 if (isset($_POST['action']) && $_POST['action'] == 'add_new_time') {
+
     $data = array(
         "message" => "Get session_id",
         "status" => 1,
@@ -11,3 +12,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'add_new_time') {
     );
     echo json_encode($data);
 }
+
+
+
