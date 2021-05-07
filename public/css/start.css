@@ -13,3 +13,7 @@ table, .table {
   padding: 40px 15px;
   text-align: center;
 }
+
+.hidden {
+    display: none;
+}

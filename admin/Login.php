@@ -4,7 +4,6 @@
 */
 class Login
 {
-    public $user_type;
 	public $email;
 	public $password;
 	public $remember_me;
@@ -23,7 +22,7 @@ class Login
 		include '../config.php';
         //verify db
         $this->db_conn = new mysqli(DB_HOST,DB_USER,DB_PWD,DB_NAME);
-        $this->user_type = $_POST['user_type'];
+
 		$this->email = $_POST['email'];
 		$this->password = $_POST['password'];
 		$this->code = $_POST['code'];
@@ -110,7 +109,7 @@ class Login
 
 	public function login_action()
 	{
-		$this->check_captcha_code();
+//		$this->check_captcha_code();
 		$this->check_email_format();
 		$this->check_password();
 		$this->check_email();

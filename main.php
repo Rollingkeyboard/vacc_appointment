@@ -37,7 +37,7 @@
                                 <input type="radio" name="user_type" id="reg_pa" value="1" checked> Patient
                             </label>
                             <label class="checkbox-inline">
-                                <input type="radio" name="user_type" id="reg_pd" value="0"> Provider
+                                <input type="radio" name="user_type" id="reg_pd" value="2"> Provider
                             </label>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                     <h6 style="color: red;" id="dis_con_pwd"></h6>
                   </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="col_ssn" >
                         <label for="ssn" class="col-sm-4 control-label">SSN:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" name="ssn" id="ssn" placeholder="SSN" required="">
@@ -85,19 +85,19 @@
                         <h6 style="color: red;" id="dis_ssn"></h6>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="col_gender">
                         <label for="gender" class="col-sm-4 control-label">Gender:</label>
                         <div class="col-sm-3">
                             <label class="checkbox-inline">
-                                <input type="radio" name="gender" id="reg_gender_m" value="1" checked> Male
+                                <input type="radio" name="gender" id="reg_gender_m" value="male" checked> Male
                             </label>
                             <label class="checkbox-inline">
-                                <input type="radio" name="gender" id="reg_gender_f" value="0"> Female
+                                <input type="radio" name="gender" id="reg_gender_f" value="female"> Female
                             </label>
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="col_dob">
                         <label for="dob" class="col-sm-4 control-label">Date of Birth:</label>
                         <div class="col-sm-6">
                             <input type="date" class="form-control" name="dob" id="dob" placeholder="" required="">
@@ -121,12 +121,25 @@
                         <h6 style="color: red;" id="dis_addr"></h6>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="col_max_distance">
                         <label for="max_distance" class="col-sm-4 control-label">Max Distance:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" name="max_distance" id="max_distance" placeholder="max distance"  required="">
                         </div>
                         <h6 style="color: red;" id="dis_max_dist"></h6>
+                    </div>
+
+                    <div class="form-group hidden" id="col_pd_type" >
+                        <label for="provider_type" class="col-sm-4 control-label">Provider Type:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" name="provider_type" id="provider_type" aria-label="Default select example""  required="">
+                                <option selected>Open this select menu</option>
+                                <option value="hospital">Hospital</option>
+                                <option value="doctor">Doctor</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <h6 style="color: red;" id="dis_pd_type"></h6>
                     </div>
 
                   
@@ -167,20 +180,20 @@
               <form action="admin/Login.php" method="post" accept-charset="utf-8" class="form-horizontal">
                 <div class="modal-body">
 
-                    <div class="form-group">
-                        <label for="user_type" class="col-sm-4 control-label">User Type:</label>
-                        <div class="col-sm-3">
-                            <label class="checkbox-inline">
-                                <input type="radio" name="user_type" id="log_pa" value="0" checked> Patient
-                            </label>
-                            <label class="checkbox-inline">
-                                <input type="radio" name="user_type" id="log_pd" value="1"> Provider
-                            </label>
-                            <label class="checkbox-inline">
-                                <input type="radio" name="user_type" id="log_ad" value="2"> Admin
-                            </label>
-                        </div>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="user_type" class="col-sm-4 control-label">User Type:</label>-->
+<!--                        <div class="col-sm-3">-->
+<!--                            <label class="checkbox-inline">-->
+<!--                                <input type="radio" name="user_type" id="log_pa" value="0" checked> Patient-->
+<!--                            </label>-->
+<!--                            <label class="checkbox-inline">-->
+<!--                                <input type="radio" name="user_type" id="log_pd" value="1"> Provider-->
+<!--                            </label>-->
+<!--                            <label class="checkbox-inline">-->
+<!--                                <input type="radio" name="user_type" id="log_ad" value="2"> Admin-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                   <div class="form-group">
                     <label for="email" class="col-sm-4 control-label">Email:</label>

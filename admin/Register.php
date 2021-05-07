@@ -4,6 +4,7 @@
 */
 class Register
 {
+    private $user_type;
 	private $username;
     private $email;
     private $password;
@@ -14,10 +15,12 @@ class Register
     private $phone;
     private $address;
     private $max_distance;
+    private $provider_type;
 	private $captcha;
     private $longitude;
     private $latitude;
     private $db_con;
+
 	function __construct()
 	{
 		if (!isset($_POST['type'])) {
@@ -146,34 +149,55 @@ class Register
 
 	public function register_action()
 	{
+
+	    /*
+	     * user table
+	     */
 		$this->email = $_POST['email'];
-        $this->ssn = $_POST['ssn'];
+        $this->password = $_POST['password'];
+        $this->confirm_password = $_POST['confirm'];
+        $this->user_type = intval($_POST['user_type']);
+
+        /*
+         * patient table
+         */
+        if ($this->user_type === 1){
+            $this->ssn = $_POST['ssn'];
+            $this->dob = $_POST['dob'];
+            $this->gender = $_POST['gender'];
+        }
+        /*
+         * provider table
+         */
+        elseif ($this->user_type === 2){
+            $this->provider_type = $_POST['provider_type'];
+        }
 		$this->username = $_POST['username'];
-		$this->password = $_POST['password'];
-		$this->confirm_password = $_POST['confirm'];
-        $this->dob = $_POST['dob'];
-        $this->gender = $_POST['gender'];
         $this->phone = $_POST['phone'];
         $this->address = $_POST['address'];
         $this->max_distance = $_POST['max_distance'];
+        $this->longitude = -122;
+        $this->latitude = 37;
+        /*
+         * web server feature
+         */
         $this->captcha = $_POST['code'];
 
+//        $this->user_type = 2;
 //        $this->username = 'test03';
 //		$this->email = 'test03@example.org';
 //		$this->password = '112233';
 //		$this->confirm_password = '112233';
 //		$this->dob = '2001-01-01';
 //        $this->ssn = '1231231224';
-//        $this->gender = 1;
+//        $this->gender = 'male';
 //        $this->phone = '1112223334';
 //        $this->address = '149 9th St, San Francisco, CA, 94103';
 //        $this->max_distance = 25;
+//
+//        $this->provider_type = 'other';
 
-
-        $this->longitude = -122;
-        $this->latitude = 37;
-
-		$this->check_captcha();
+//		$this->check_captcha();
 		$this->check_password();
         $this->check_name_format();
 		$this->check_email_format();
@@ -184,23 +208,38 @@ class Register
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
             $stmt = $this->db_con->prepare(
-                "INSERT INTO user(user_name, user_password, role_id) VALUES (?,?, 1);");
-            $stmt->bind_param('ss', $this->email, $this->password);
+                "INSERT INTO user(user_name, user_password, role_id) VALUES (?, ?, ?);");
+            $stmt->bind_param('ssi', $this->email, $this->password, $this->user_type);
             $stmt->execute();
             $last_insert_id = $this->db_con->insert_id;
+
+
             /* insert into patient table*/
-            $stmt = $this->db_con->prepare("INSERT INTO patient(patient_id, patient_name, ssn
-                    , birth, patient_address, patient_phone
-                    , patient_email,  max_distance, patient_longitude, patient_latitude)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-            /* bind parameter*/
-            $stmt->bind_param('issssssidd', $last_insert_id, $this->username
-                , $this->ssn, $this->dob, $this->address, $this->phone, $this->email
-                , $this->max_distance, $this->longitude, $this->latitude);
+
+            if ($this->user_type === 1) {
+                $stmt = $this->db_con->prepare("INSERT INTO patient(
+                        patient_id, patient_name, ssn, birth, gender
+                        , patient_address, patient_phone, patient_email
+                        ,  max_distance, patient_longitude, patient_latitude)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+                /* bind parameter*/
+                $stmt->bind_param('isssssssidd', $last_insert_id, $this->username
+                    , $this->ssn, $this->dob, $this->gender, $this->address, $this->phone, $this->email
+                    , $this->max_distance, $this->longitude, $this->latitude);
+            }
+            elseif ($this->user_type === 2){
+                $stmt = $this->db_con->prepare("INSERT INTO provider(
+                        provider_id, provider_name, provider_phone, provider_address
+                        , provider_email, provider_type, provider_longitude, provider_latitude)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?);");
+                /* bind parameter*/
+                $stmt->bind_param('isssssdd', $last_insert_id, $this->username
+                    , $this->phone, $this->address, $this->email, $this->provider_type
+                    , $this->longitude, $this->latitude);
+            }
             $stmt->execute();
             $this->db_con->autocommit(true);
             $stmt->store_result();
-
             /* If code reaches this point without errors then commit the data in the database */
             }catch (mysqli_sql_exception $exception) {
                 $this->db_con->rollback();
