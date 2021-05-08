@@ -1,6 +1,53 @@
 $(document).ready(function () {
     let user_type;
     let u_id;
+    let html_btn = '<td name="buttons">'+
+        '<div className="btn-group pull-right">'+
+        '<button id="bEdit" type="button" className="btn btn-sm btn-default" '+
+        'onClick="butRowEdit(this);" style="display: block;">'+
+        '<span className="glyphicon glyphicon-pencil"> ✎ </span></button>'+
+        '<button id="bElim" type="button" className="btn btn-sm btn-default" '+
+        'onClick="butRowDelete(this);" style="display: block;"><span'+
+        'className="glyphicon glyphicon-trash"> X </span></button>'+
+        '<button id="bAcep" type="button" className="btn btn-sm btn-default" '+
+        'style="display: none;" onClick="butRowAcep(this);"><span'+
+        'className="glyphicon glyphicon-ok">  ✓ </span></button>'+
+        '<button id="bCanc" type="button" className="btn btn-sm btn-default" '+
+        'style="display: none;" onClick="butRowCancel(this);"><span'+
+        'className="glyphicon glyphicon-remove"> → </span></button>'+
+        '</div>'+
+        '</td>' +
+        '</tr>';
+
+    let cols = "";
+    cols += '<td><select class="form-control" aria-label="Default select example" name="weekday" id="weekday">' +
+        '<option value="0">Select...</option>' +
+        '<option value="1">Monday</option>' +
+        '<option value="2">Tuesday</option>' +
+        '<option value="3">Wednesday</option>' +
+        '<option value="4">Thursday</option>' +
+        '<option value="5">Friday</option>' +
+        '<option value="6">Saturday</option>' +
+        '<option value="7">Sunday</option>'+
+        '</select> </td>';
+
+    cols += '<td><select class="form-control" aria-label="Default select example" name="time_block" id="time_block">' +
+        '<option value="0">Select...</option>' +
+        '<option value="1">8AM</option>' +
+        '<option value="2">12PM</option>' +
+        '<option value="3">4PM</option>' +
+        '</select> </td>';
+
+    cols += '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+        '<option value="0">Select...</option>' +
+        '<option value="pending">pending</option>' +
+        '<option value="accepted">accepted</option>' +
+        '<option value="declined">declined</option>' +
+        '<option value="cancelled">cancelled</option>' +
+        '<option value="vaccinated">vaccinated</option>' +
+        '<option value="noshow">noshow</option>' +
+        '</select> </td>';
+
     $.ajax({
         type: 'POST',
         async: 'false',
@@ -26,27 +73,21 @@ $(document).ready(function () {
                         // $('#main_table').each(function (index, row) {
                         $('#main_table').append(
                             '<tr>' +
-                                '<td>' + res_map.get("ppt_id") + '</td><td>' + res_map.get("patient_id")+ '</td>' +
+                                // <div className="dropdown">
+                                //     <button className="btn btn-outline-secondary dropdown-toggle" type="button"
+                                //             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                //         Active
+                                //     </button>
+                                //     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                //         <a className="dropdown-item" href="#">Active</a>
+                                //         <a className="dropdown-item" href="#">Inactive</a>
+                                //     </div>
+                                // </div>
+                                '<td>'+ res_map.get("ppt_id") + '</selec></td><td>' + res_map.get("patient_id")+ '</td>' +
                                 '<td>' + res_map.get("w_id") + '</td><td>' + res_map.get("t_id") + '</td>' +
                                 '<td>' + res_map.get("status") + '</td>' +
-
-                                '<td name="buttons">'+
-                                    '<div className="btn-group pull-right">'+
-                                        '<button id="bEdit" type="button" className="btn btn-sm btn-default" '+
-                                                    'onClick="butRowEdit(this);" style="display: block;">'+
-                                                    '<span className="glyphicon glyphicon-pencil"> ✎ </span></button>'+
-                                        '<button id="bElim" type="button" className="btn btn-sm btn-default" '+
-                                                    'onClick="butRowDelete(this);" style="display: block;"><span'+
-                                                            'className="glyphicon glyphicon-trash"> X </span></button>'+
-                                        '<button id="bAcep" type="button" className="btn btn-sm btn-default" '+
-                                                            'style="display: none;" onClick="butRowAcep(this);"><span'+
-                                                            'className="glyphicon glyphicon-ok">  ✓ </span></button>'+
-                                        '<button id="bCanc" type="button" className="btn btn-sm btn-default" '+
-                                                            'style="display: none;" onClick="butRowCancel(this);"><span'+
-                                                            'className="glyphicon glyphicon-remove"> → </span></button>'+
-                                    '</div>'+
-                                '</td>' +
-                            '</tr>'
+                                html_btn
+                            + '</tr>'
                         )
                     });
 
@@ -63,27 +104,11 @@ $(document).ready(function () {
                         // $('#main_table').each(function (index, row) {
                         $('#main_table').append(
                             '<tr>' +
-                            '<td>' + res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
-                            '<td>' + res_map.get("w_id") + '</td><td>' + res_map.get("t_id") + '</td>' +
-                            '<td>' + res_map.get("status") + '</td>' +
-
-                            '<td name="buttons">'+
-                            '<div className="btn-group pull-right">'+
-                            '<button id="bEdit" type="button" className="btn btn-sm btn-default" '+
-                            'onClick="butRowEdit(this);" style="display: block;">'+
-                            '<span className="glyphicon glyphicon-pencil"> ✎ </span></button>'+
-                            '<button id="bElim" type="button" className="btn btn-sm btn-default" '+
-                            'onClick="butRowDelete(this);" style="display: block;"><span'+
-                            'className="glyphicon glyphicon-trash"> X </span></button>'+
-                            '<button id="bAcep" type="button" className="btn btn-sm btn-default" '+
-                            'style="display: none;" onClick="butRowAcep(this);"><span'+
-                            'className="glyphicon glyphicon-ok">  ✓ </span></button>'+
-                            '<button id="bCanc" type="button" className="btn btn-sm btn-default" '+
-                            'style="display: none;" onClick="butRowCancel(this);"><span'+
-                            'className="glyphicon glyphicon-remove"> → </span></button>'+
-                            '</div>'+
-                            '</td>' +
-                            '</tr>'
+                                '<td>' + res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
+                                '<td>' + res_map.get("w_id") + '</td><td>' + res_map.get("t_id") + '</td>' +
+                                '<td>' + res_map.get("status") + '</td>' +
+                                html_btn
+                            + '</tr>'
                         )
                     });
                 }else if(user_type === '3'){
@@ -102,24 +127,8 @@ $(document).ready(function () {
                             '<td>' + res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
                             '<td>' + res_map.get("w_id") + '</td><td>' + res_map.get("t_id") + '</td>' +
                             '<td>' + res_map.get("status") + '</td>' +
-
-                            '<td name="buttons">'+
-                            '<div className="btn-group pull-right">'+
-                            '<button id="bEdit" type="button" className="btn btn-sm btn-default" '+
-                            'onClick="butRowEdit(this);" style="display: block;">'+
-                            '<span className="glyphicon glyphicon-pencil"> ✎ </span></button>'+
-                            '<button id="bElim" type="button" className="btn btn-sm btn-default" '+
-                            'onClick="butRowDelete(this);" style="display: block;"><span'+
-                            'className="glyphicon glyphicon-trash"> X </span></button>'+
-                            '<button id="bAcep" type="button" className="btn btn-sm btn-default" '+
-                            'style="display: none;" onClick="butRowAcep(this);"><span'+
-                            'className="glyphicon glyphicon-ok"> ✓ </span></button>'+
-                            '<button id="bCanc" type="button" className="btn btn-sm btn-default" '+
-                            'style="display: none;" onClick="butRowCancel(this);"><span'+
-                            'className="glyphicon glyphicon-remove"> → </span></button>'+
-                            '</div>'+
-                            '</td>' +
-                            '</tr>'
+                            html_btn
+                            + '</tr>'
                         )
                     });
                 }

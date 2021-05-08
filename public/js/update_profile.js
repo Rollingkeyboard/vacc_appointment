@@ -2,6 +2,29 @@ $(document).ready(function() {
     let ssn_flag = true;
     let email_flag = true;
     let password_flag = true;
+    let user_type;
+    $.ajax({
+        type: 'POST',
+        async: 'false',
+        url : "admin/Profile.php",
+        dataType: "json",
+        data: {type:'display'},
+        success: function (response) {
+            if(response.status) {
+                user_type = response.role_sql.role_id;
+                if (user_type === '1'){
+                    $('#add_new_row').removeClass("hidden")
+                }
+                else if (user_type === '2'){
+                    $('#add_new_row').removeClass("hidden")
+                }
+                else if (user_type === '3'){
+                    // console.log(response.message);
+                    $('#add_new_row').addClass("hidden")
+                }
+            }
+        }
+    });
 
     $('#pop_profile').click(function () {
         $.ajax({
@@ -12,17 +35,85 @@ $(document).ready(function() {
             data: {type:'display'},
             success: function (response) {
                 if(response.status) {
+                    user_type = response.role_sql.role_id;
+                    if (user_type === '1'){
+                        // patient append goes here(default)
+                        $('#col_pd_type').addClass("hidden");
+                        $('#pd_type').removeAttr("required");
+                        $('#col_ssn').removeClass("hidden")
+                        // $('#ssn').attr("required", "required");
+                        $('#col_dob').removeClass("hidden");
+                        // $('#_dob').attr("required", "required");
+                        $('#col_gender').removeClass("hidden");
+                        $('#col_max_distance').removeClass("hidden");
+                        // $('#max_distance').attr("required", "required");
+                        $('#add_new_row').removeClass("hidden");
+                        $('#col_phone').removeClass("hidden");
+                        $('#col_address').removeClass("hidden");
+                        /*
+                        * populate patient profile
+                        */
+                        // $('#user_id').val(response.sql_result.patient_id);
+                        $('#email').val(response.sql_result.patient_email);
+                        $('#username').val(response.sql_result.patient_name);
+                        $('#ssn').val(response.sql_result.ssn);
+                        $('#dob').val(response.sql_result.birth);
+                        $('#address').val(response.sql_result.patient_address);
+                        $('#phone').val(response.sql_result.patient_phone);
+                        $('#max_distance').val(response.sql_result.max_distance);
+                        $('#password').val(response.sql_result.user_password);
+                        $('#confirm').val(response.sql_result.user_password);
+                    }
+                    else if (user_type === '2'){
+                        $('#col_ssn').addClass("hidden");
+                        $('#ssn').removeAttr("required");
+                        $('#col_dob').addClass("hidden");
+                        $('#dob').removeAttr("required");
+                        $('#col_gender').addClass("hidden");
+                        $('#col_max_distance').addClass("hidden");
+                        $('#max_distance').removeAttr("required");
+                        $('#col_pd_type').removeClass("hidden");
+                        // $('#provider_type').attr("required", "required");
+                        $('#add_new_row').removeClass("hidden");
+                        $('#col_phone').removeClass("hidden");
+                        $('#col_address').removeClass("hidden");
+                        /*
+                        * populate provider profile
+                        */
+                        // $('#user_id').val(response.sql_result.patient_id);
+                        $('#email').val(response.sql_result.provider_email);
+                        $('#username').val(response.sql_result.provider_name);
+                        $('#address').val(response.sql_result.provider_address);
+                        $('#phone').val(response.sql_result.provider_phone);
+                        $('#password').val(response.sql_result.user_password);
+                        $('#confirm').val(response.sql_result.user_password);
+                        $('#provider_type').val(response.sql_result.provider_type);
+
+
+                    }
+                    else if (user_type === '3'){
                     // console.log(response.message);
-                    // $('#user_id').val(response.sql_result.patient_id);
-                    $('#email').val(response.sql_result.patient_email);
-                    $('#username').val(response.sql_result.patient_name);
-                    $('#ssn').val(response.sql_result.ssn);
-                    $('#dob').val(response.sql_result.birth);
-                    $('#address').val(response.sql_result.patient_address);
-                    $('#phone').val(response.sql_result.patient_phone);
-                    $('#max_distance').val(response.sql_result.max_distance);
-                    $('#password').val(response.sql_result.user_password);
-                    $('#confirm').val(response.sql_result.user_password);
+                        $('#col_pd_type').addClass("hidden");
+                        $('#col_dob').addClass("hidden");
+                        $('#col_gender').addClass("hidden");
+                        $('#col_max_distance').addClass("hidden");
+                        $('#col_ssn').addClass("hidden");
+                        $('#add_new_row').addClass("hidden");
+                        $('#col_phone').addClass("hidden");
+                        $('#col_address').addClass("hidden");
+
+                        $('#pd_type').removeAttr("required");
+                        $('#ssn').removeAttr("required");
+                        $('#dob').removeAttr("required");
+                        $('#max_distance').removeAttr("required");
+                        $('#phone').removeAttr("required");
+                        $('#address').removeAttr("required");
+
+                        $('#email').val(response.sql_result.user_name);
+                        $('#username').val('Administrator');
+                        $('#password').val(response.sql_result.user_password);
+                        $('#confirm').val(response.sql_result.user_password);
+                    }
                 }
             }
         });

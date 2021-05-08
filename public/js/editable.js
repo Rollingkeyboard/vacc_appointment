@@ -1,6 +1,52 @@
 $( document ).ready(function() {
 	let uid = null;
 	let insert_new_row = false;
+	let html_btn = '<td name="buttons">'+
+		'<div className="btn-group pull-right">'+
+		'<button id="bEdit" type="button" className="btn btn-sm btn-default" '+
+		'onClick="butRowEdit(this);" style="display: block;">'+
+		'<span className="glyphicon glyphicon-pencil"> ✎ </span></button>'+
+		'<button id="bElim" type="button" className="btn btn-sm btn-default" '+
+		'onClick="butRowDelete(this);" style="display: block;"><span'+
+		'className="glyphicon glyphicon-trash"> X </span></button>'+
+		'<button id="bAcep" type="button" className="btn btn-sm btn-default" '+
+		'style="display: none;" onClick="butRowAcep(this);"><span'+
+		'className="glyphicon glyphicon-ok">  ✓ </span></button>'+
+		'<button id="bCanc" type="button" className="btn btn-sm btn-default" '+
+		'style="display: none;" onClick="butRowCancel(this);"><span'+
+		'className="glyphicon glyphicon-remove"> → </span></button>'+
+		'</div>'+
+		'</td>' +
+		'</tr>';
+
+	let cols = "";
+	cols += '<td><select class="form-control" aria-label="Default select example" name="weekday" id="weekday">' +
+		'<option value="0">Select...</option>' +
+		'<option value="1">Monday</option>' +
+		'<option value="2">Tuesday</option>' +
+		'<option value="3">Wednesday</option>' +
+		'<option value="4">Thursday</option>' +
+		'<option value="5">Friday</option>' +
+		'<option value="6">Saturday</option>' +
+		'<option value="7">Sunday</option>'+
+		'</select> </td>';
+
+	cols += '<td><select class="form-control" aria-label="Default select example" name="time_block" id="time_block">' +
+		'<option value="0">Select...</option>' +
+		'<option value="1">8AM</option>' +
+		'<option value="2">12PM</option>' +
+		'<option value="3">4PM</option>' +
+		'</select> </td>';
+
+	cols += '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+		'<option value="0">Select...</option>' +
+		'<option value="pending">pending</option>' +
+		'<option value="accepted">accepted</option>' +
+		'<option value="declined">declined</option>' +
+		'<option value="cancelled">cancelled</option>' +
+		'<option value="vaccinated">vaccinated</option>' +
+		'<option value="noshow">noshow</option>' +
+		'</select> </td>';
 
 	$.ajax({
 		type: 'POST',
@@ -90,6 +136,23 @@ $( document ).ready(function() {
 	});
 	$('#add_new_row').click(function() {
 		insert_new_row = true;
-		rowAddNewAndEdit('editableTable', ['new appointment', uid, 1, 1,'pending']);
+		$('#main_table').append(
+			'<tr>' +
+			// <div className="dropdown">
+			//     <button className="btn btn-outline-secondary dropdown-toggle" type="button"
+			//             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			//         Active
+			//     </button>
+			//     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			//         <a className="dropdown-item" href="#">Active</a>
+			//         <a className="dropdown-item" href="#">Inactive</a>
+			//     </div>
+			// </div>
+			'<td>'+ 'new appointment' + '</selec></td><td>' + uid+ '</td>' +
+			cols +
+			html_btn
+			+ '</tr>'
+		)
+		// rowAddNewAndEdit('editableTable', ['new appointment', uid, 1, 1,'pending']);
 	});
 });

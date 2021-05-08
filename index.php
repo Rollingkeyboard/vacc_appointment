@@ -135,7 +135,7 @@ $_SESSION['user'] = 3;
                           <h6 style="color: red;" id="dis_con_pwd"></h6>
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group" id="col_ssn">
                           <label for="ssn" class="col-sm-4 control-label">SSN:</label>
                           <div class="col-sm-6">
                               <input type="text" class="form-control" name="ssn" id="ssn" readonly="readonly" placeholder="SSN" required="">
@@ -144,7 +144,7 @@ $_SESSION['user'] = 3;
                           <h6 style="color: red;" id="dis_ssn"></h6>
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group" id="col_gender">
                           <label for="gender" class="col-sm-4 control-label">Gender:</label>
                           <div class="col-sm-3">
                               <label class="checkbox-inline">
@@ -156,7 +156,7 @@ $_SESSION['user'] = 3;
                           </div>
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group" id="col_dob">
                           <label for="dob" class="col-sm-4 control-label">Date of Birth:</label>
                           <div class="col-sm-6">
                               <input type="date" class="form-control" name="dob" id="dob" placeholder="" required="">
@@ -164,7 +164,7 @@ $_SESSION['user'] = 3;
                           <h6 style="color: red;" id="dis_dob"></h6>
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group" id="col_phone">
                           <label for="phone" class="col-sm-4 control-label">Phone:</label>
                           <div class="col-sm-6">
                               <input type="tel" class="form-control" name="phone" id="phone" placeholder="phone" minlength="10" maxlength="10" required="">
@@ -172,7 +172,7 @@ $_SESSION['user'] = 3;
                           <h6 style="color: red;" id="dis_phone"></h6>
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group" id="col_address">
                           <label for="address" class="col-sm-4 control-label">Address:</label>
                           <div class="col-sm-6">
                               <input type="text" class="form-control" name="address" id="address" placeholder="address"  required="">
@@ -180,7 +180,7 @@ $_SESSION['user'] = 3;
                           <h6 style="color: red;" id="dis_addr"></h6>
                       </div>
 
-                      <div class="form-group">
+                      <div class="form-group" id="col_max_distance">
                           <label for="max_distance" class="col-sm-4 control-label">Max Distance:</label>
                           <div class="col-sm-6">
                               <input type="text" class="form-control" name="max_distance" id="max_distance" placeholder="max distance"  required="">
@@ -188,6 +188,19 @@ $_SESSION['user'] = 3;
                           <h6 style="color: red;" id="dis_max_dist"></h6>
                       </div>
 
+                      <div class="form-group hidden" id="col_pd_type" >
+                          <label for="provider_type" class="col-sm-4 control-label">Provider Type:</label>
+                          <div class="col-sm-6">
+                              <select class="form-control" name="provider_type" id="provider_type" aria-label="Default select example"  required="">
+                              <option selected>Open this select menu</option>
+                              <option value="hospital">Hospital</option>
+                              <option value="doctor">Doctor</option>
+                              <option value="pharmacy"Pharmacy</option>
+                              <option value="other">Other</option>
+                              </select>
+                          </div>
+                          <h6 style="color: red;" id="dis_pd_type"></h6>
+                      </div>
 
                       <div class="form-group">
                           <label for="code" class="col-sm-4 control-label"> Verification Code :</label>

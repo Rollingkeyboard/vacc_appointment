@@ -75,7 +75,7 @@
                     <h6 style="color: red;" id="dis_con_pwd"></h6>
                   </div>
 
-                    <div class="form-group" id="col_ssn" >
+                    <div class="form-group" id="col_ssn">
                         <label for="ssn" class="col-sm-4 control-label">SSN:</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" name="ssn" id="ssn" placeholder="SSN" required="">
