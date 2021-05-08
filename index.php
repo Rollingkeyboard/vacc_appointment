@@ -84,7 +84,6 @@ if (isset($_SESSION['rem'])) {
 <!--                                    <option value="4PM">4PM</option>-->
 <!--                                </select>-->
 <!--                            </td>-->
-
               <p><a class="btn btn-primary btn-lg" role="button" id="add_new_row">add new appointment</a></p>
 <!--                --><?php //require_once 'user_session_id_ajax.php'; ?>
             </div>
