@@ -11,7 +11,13 @@ class Schedule {
             FROM provider_available_time;";
         $ppt_query = "
             SELECT ppt_id, patient_id, wid, tid
-            FROM patient_preferred_time;";
+            FROM patient_preferred_time
+            WHERE patient_id NOT IN (
+                SELECT DISTINCT patient_id
+                FROM appointment
+                WHERE status = 'vaccinated' OR
+                    status = 'accepted' OR
+                    status = 'pending');";
     }
 
     function __destruct() {
