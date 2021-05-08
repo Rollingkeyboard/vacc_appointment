@@ -1,18 +1,18 @@
 <?php 
 session_start();
-//if (!isset($_SESSION['user'])) {
-//  if (isset($_COOKIE['user'])) {
-//    $_SESSION['user'] = $_COOKIE['user'];
-//  }else{
-//    header('location:main.php');
-//    exit();
-//  }
-//}
-//if (isset($_SESSION['rem'])) {
-//  setcookie('user',$_SESSION['user'],time()+3600);
-//  unset($_SESSION['rem']);
-//}
-$_SESSION['user'] = 3;
+if (!isset($_SESSION['user'])) {
+  if (isset($_COOKIE['user'])) {
+    $_SESSION['user'] = $_COOKIE['user'];
+  }else{
+    header('location:main.php');
+    exit();
+  }
+}
+if (isset($_SESSION['rem'])) {
+  setcookie('user',$_SESSION['user'],time()+3600);
+  unset($_SESSION['rem']);
+}
+//$_SESSION['user'] = 3;
 ?>
 <!DOCTYPE html>
 <html lang="en">

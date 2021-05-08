@@ -234,24 +234,7 @@ class Profile
         $this->latitude = 42.4;
         $this->captcha = $_POST['code'];
 
-
-//        $this->username = 'admin@admin.org';
-//		$this->email = 'admin@admin.org';
-//		$this->password = '123123';
-//		$this->confirm_password = '123123';
-//		$this->dob = '2001-01-01';
-//        $this->ssn = '1231231233';
-//        $this->gender = 1;
-//        $this->phone = '6441325997';
-//        $this->address = '451 Leannon Circles Apt. 710 Hirtheborough, NH 75218';
-//        $this->max_distance = 25;
-//        $this->captcha = $_POST['code'];
-//        $this->provider_type = 'doctor';
-//        $this->longitude = 110;
-//        $this->latitude = 42.4;
-//        $this->user_type='2';
-
-//		$this->check_captcha();
+		$this->check_captcha();
         $this->check_password();
         $this->check_name_format();
 //      $this->check_email_format();
@@ -315,9 +298,6 @@ class Profile
 }
 
 $profile_user = new Profile();
-//$_SESSION['user'] = 15;
-//$profile_user->populate_data();
-//$profile_user->update_action();
 
 if ($_POST['type'] == 'display'){
     $profile_user->populate_data();

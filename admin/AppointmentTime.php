@@ -1,17 +1,5 @@
 <?php
 session_start();
-//if (!isset($_SESSION['user'])) {
-//    if (isset($_COOKIE['user'])) {
-//        $_SESSION['user'] = $_COOKIE['user'];
-//    }else{
-//        header('location:main.php');
-//        exit();
-//    }
-//}
-//if (isset($_SESSION['rem'])) {
-//    setcookie('user',$_SESSION['user'],time()+3600);
-//    unset($_SESSION['rem']);
-//}
 
 ?>
 <?php
@@ -36,10 +24,6 @@ class AppointmentTime
     private $db_con;
     function __construct()
     {
-//        if (!isset($_POST['type'])) {
-//            echo "<script>alert('This page does not exist!');history.go(-1);</script>";
-//            exit();
-//        }
         /**
          * debug dump data
          */
@@ -169,31 +153,31 @@ if (isset($_POST['user_id']) && $_POST['user_id'] =='get_user_id'){
     }
 }
 
-if (isset($_POST['user_type']) && $_POST['user_type'] == 'patient') {
-
-    $data = array(
-        "message" => "Get session_id",
-        "status" => 1,
-        "data" => $_SESSION['user']
-    );
-    echo json_encode($data);
-}
-elseif (isset($_POST['user_type']) && $_POST['user_type'] == 'provider') {
-
-    $data = array(
-        "message" => "Get session_id",
-        "status" => 1,
-        "data" => $_SESSION['user']
-    );
-    echo json_encode($data);
-}
-elseif (isset($_POST['user_type']) && $_POST['user_type'] == 'admin') {
-    $data = array(
-        "message" => "Get session_id",
-        "status" => 1,
-        "data" => $_SESSION['user']
-    );
-    echo json_encode($data);
-}
+//if (isset($_POST['user_type']) && $_POST['user_type'] == 'patient') {
+//
+//    $data = array(
+//        "message" => "Get session_id",
+//        "status" => 1,
+//        "data" => $_SESSION['user']
+//    );
+//    echo json_encode($data);
+//}
+//elseif (isset($_POST['user_type']) && $_POST['user_type'] == 'provider') {
+//
+//    $data = array(
+//        "message" => "Get session_id",
+//        "status" => 1,
+//        "data" => $_SESSION['user']
+//    );
+//    echo json_encode($data);
+//}
+//elseif (isset($_POST['user_type']) && $_POST['user_type'] == 'admin') {
+//    $data = array(
+//        "message" => "Get session_id",
+//        "status" => 1,
+//        "data" => $_SESSION['user']
+//    );
+//    echo json_encode($data);
+//}
 
 

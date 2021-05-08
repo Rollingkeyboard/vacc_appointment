@@ -109,7 +109,7 @@ class Login
 
 	public function login_action()
 	{
-//		$this->check_captcha_code();
+		$this->check_captcha_code();
 		$this->check_email_format();
 		$this->check_password();
 		$this->check_email();

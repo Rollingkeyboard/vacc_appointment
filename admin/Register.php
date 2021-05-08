@@ -183,21 +183,7 @@ class Register
          */
         $this->captcha = $_POST['code'];
 
-//        $this->user_type = 2;
-//        $this->username = 'test03';
-//		$this->email = 'test03@example.org';
-//		$this->password = '112233';
-//		$this->confirm_password = '112233';
-//		$this->dob = '2001-01-01';
-//        $this->ssn = '1231231224';
-//        $this->gender = 'male';
-//        $this->phone = '1112223334';
-//        $this->address = '149 9th St, San Francisco, CA, 94103';
-//        $this->max_distance = 25;
-//
-//        $this->provider_type = 'other';
-
-//		$this->check_captcha();
+		$this->check_captcha();
 		$this->check_password();
         $this->check_name_format();
 		$this->check_email_format();
@@ -257,7 +243,6 @@ class Register
 }
 
 $register_user = new Register();
-//$register_user->register_action();
 
 switch ($_POST['type']) {
 	case 'ssn':

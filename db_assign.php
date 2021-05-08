@@ -7,10 +7,10 @@ class Schedule {
     function __construct() {
         $this->db_conn = new mysqli(DB_HOST,DB_USER,DB_PWD,DB_NAME);
         $pat_query = "
-            SELECT pat_id, provider_id, wid, tid
+            SELECT pat_id, provider_id, w_id, t_id
             FROM provider_available_time;";
         $ppt_query = "
-            SELECT ppt_id, patient_id, wid, tid
+            SELECT ppt_id, patient_id, w_id, t_id
             FROM patient_preferred_time
             WHERE patient_id NOT IN (
                 SELECT DISTINCT patient_id
@@ -44,7 +44,7 @@ class Schedule {
         foreach ($this->appointment as $user => $app) {
             $query = "
                 INSERT INTO APPOINTMENT (patient_id, pat_id, offered_timestamp, status)
-                VALUES (".$user.", ".$app["pat_id"].", "."NOW(), \"pending\");";
+                VALUES (".$user.", ".$app["pat_id"].", "."NOW(), 'pending');";
             $this->db_conn->query($query);
         }
     }
@@ -65,4 +65,4 @@ class Schedule {
         fwrite($outfile, json_encode($rows, JSON_PRETTY_PRINT));
     }
 }
-?>
+
