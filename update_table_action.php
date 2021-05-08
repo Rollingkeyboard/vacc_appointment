@@ -23,7 +23,7 @@ if ($_POST['action'] == 'delete' && $_POST['id']) {
 	$sqlQuery = "DELETE FROM patient_preferred_time WHERE ppt_id ='" . $_POST['id'] . "';";
 	mysqli_query($mysqli, $sqlQuery) or die("database error:". mysqli_error($mysqli));
 	$data = array(
-		"message"	=> "Record Deleted",	
+		"message"   => "Record Deleted",
 		"status" => 1
 	);
 	echo json_encode($data);	

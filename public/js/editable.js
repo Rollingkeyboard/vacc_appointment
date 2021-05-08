@@ -63,12 +63,14 @@ $( document ).ready(function() {
   $('#editableTable').SetEditable({
 	  columnsEd: "2,3,4",
 	  onEdit: function(columnsEd) {
+		  console.log(columnsEd[0]);
 		  if (insert_new_row === false){
-			  let record_id = columnsEd[0].childNodes[1].innerHTML;
-			  let user_id = columnsEd[0].childNodes[3].innerHTML;
-			  let user_weekday = columnsEd[0].childNodes[5].innerHTML;
-			  let user_time_block = columnsEd[0].childNodes[7].innerHTML;
-			  let user_status = columnsEd[0].childNodes[9].innerHTML;
+			  let record_id = columnsEd[0].childNodes[0].innerHTML;
+			  let user_id = columnsEd[0].childNodes[1].innerHTML;
+			  let user_weekday = columnsEd[0].childNodes[2].innerHTML;
+			  let user_time_block = columnsEd[0].childNodes[3].innerHTML;
+			  let user_status = columnsEd[0].childNodes[4].innerHTML;
+
 			  $.ajax({
 				  type: 'POST',
 				  url : "update_table_action.php",
@@ -78,7 +80,8 @@ $( document ).ready(function() {
 				  success: function (response) {
 					  if(response.status) {
 						  // show update message
-						  alert("Edit success")
+						  // Edit success
+						  alert(response.message)
 					  }
 				  }
 			  });
@@ -97,14 +100,15 @@ $( document ).ready(function() {
 				  success: function (response) {
 					  if(response.status) {
 						  // show update message
-						  alert("Add success")
+						  // Add success
+						  alert(response.message)
 					  }
 				  }
 			  });
 		  }
 	  },
 	  onBeforeDelete: function(columnsEd) {
-	  let record_id = columnsEd[0].childNodes[1].innerHTML;
+	  let record_id = columnsEd[0].childNodes[0].innerHTML;
 	  $.ajax({
 			type: 'POST',
 			url : "update_table_action.php",
@@ -113,6 +117,7 @@ $( document ).ready(function() {
 			success: function (response) {
 				if(response.status) {
 					// show delete message
+					// delete success
 					alert(response.message)
 				}
 			}
