@@ -8,10 +8,10 @@ class Schedule {
         $this->db_conn = new mysqli(DB_HOST,DB_USER,DB_PWD,DB_NAME);
         $pat_query = "
             SELECT pat_id, provider_id, wid, tid
-            FROM provider_available_time";
+            FROM provider_available_time;";
         $ppt_query = "
             SELECT ppt_id, patient_id, wid, tid
-            FROM patient_preferred_time";
+            FROM patient_preferred_time;";
     }
 
     function __destruct() {
