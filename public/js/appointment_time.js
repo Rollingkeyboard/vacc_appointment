@@ -19,8 +19,8 @@ $(document).ready(function () {
         '</td>' +
         '</tr>';
 
-    let cols = "";
-    cols += '<td><select class="form-control" aria-label="Default select example" name="weekday" id="weekday">' +
+    let col_w_val = "0";
+    let col_w = '<td><select class="form-control" aria-label="Default select example" name="weekday" id="weekday">' +
         '<option value="0">Select...</option>' +
         '<option value="1">Monday</option>' +
         '<option value="2">Tuesday</option>' +
@@ -31,14 +31,16 @@ $(document).ready(function () {
         '<option value="7">Sunday</option>'+
         '</select> </td>';
 
-    cols += '<td><select class="form-control" aria-label="Default select example" name="time_block" id="time_block">' +
+    let col_t_val = "0";
+    let col_t = '<td><select class="form-control" aria-label="Default select example" name="time_block" id="time_block">' +
         '<option value="0">Select...</option>' +
         '<option value="1">8AM</option>' +
         '<option value="2">12PM</option>' +
         '<option value="3">4PM</option>' +
         '</select> </td>';
 
-    cols += '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+    let col_st_val = "0";
+    let col_st = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
         '<option value="0">Select...</option>' +
         '<option value="pending">pending</option>' +
         '<option value="accepted">accepted</option>' +
@@ -47,6 +49,7 @@ $(document).ready(function () {
         '<option value="vaccinated">vaccinated</option>' +
         '<option value="noshow">noshow</option>' +
         '</select> </td>';
+    // cols = col_w + col_t + col_st;
 
     $.ajax({
         type: 'POST',
@@ -72,7 +75,7 @@ $(document).ready(function () {
 
                         // $('#main_table').each(function (index, row) {
                         $('#main_table').append(
-                            '<tr>' +
+                            '<tr id="row_' + key +'">' +
                                 // <div className="dropdown">
                                 //     <button className="btn btn-outline-secondary dropdown-toggle" type="button"
                                 //             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,12 +86,14 @@ $(document).ready(function () {
                                 //         <a className="dropdown-item" href="#">Inactive</a>
                                 //     </div>
                                 // </div>
-                                '<td>'+ res_map.get("ppt_id") + '</selec></td><td>' + res_map.get("patient_id")+ '</td>' +
-                                '<td>' + res_map.get("w_id") + '</td><td>' + res_map.get("t_id") + '</td>' +
-                                '<td>' + res_map.get("status") + '</td>' +
-                                html_btn
+                                '<td>'+ res_map.get("ppt_id") + '</td><td>' + res_map.get("patient_id")+ '</td>' +
+                                 col_w + col_t + col_st + html_btn
                             + '</tr>'
-                        )
+                        );
+                        let curr_row = $("#row_"+key);
+                        curr_row.find("select:eq(0)").val(res_map.get("w_id"));
+                        curr_row.find("select:eq(1)").val(res_map.get("t_id"));
+                        curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
 
                 }else if(user_type === '2'){
