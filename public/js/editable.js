@@ -119,7 +119,7 @@ $( document ).ready(function() {
 			type: 'POST',
 			url : "update_table_action.php",
 			dataType: "json",
-			data: {id:record_id, action:'delete'},
+			data: {id:record_id, user_type: user_type, action:'delete'},
 			success: function (response) {
 				if(response.status) {
 					// show delete message

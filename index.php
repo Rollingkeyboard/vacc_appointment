@@ -86,7 +86,7 @@ if (isset($_SESSION['rem'])) {
 <!--                            </td>-->
 
               <p><a class="btn btn-primary btn-lg" role="button" id="add_new_row">add new appointment</a></p>
-                <?php require_once 'user_session_id_ajax.php'; ?>
+<!--                --><?php //require_once 'user_session_id_ajax.php'; ?>
             </div>
       </div>
     </div>

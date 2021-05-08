@@ -34,26 +34,24 @@ if ($_POST['action'] == 'edit' && $_POST['id']) {
 	}
 }
 if ($_POST['action'] == 'delete' && $_POST['id']) {
-    if (isset($_POST['user_type']) && $_POST['user_type'] === '1'){
-        $sqlQuery = "DELETE FROM patient_preferred_time WHERE ppt_id ='" . $_POST['id'] . "';";
+    if (isset($_POST['user_type']) ){
+        if ($_POST['user_type'] === '1'){
+            $sqlQuery = "DELETE FROM patient_preferred_time WHERE ppt_id ='" . $_POST['id'] . "';";
+        }
+        elseif ($_POST['user_type'] === '2'){
+            $sqlQuery = "DELETE FROM provider_available_time WHERE pat_id ='" . $_POST['id'] . "';";
+        }
+        mysqli_query($mysqli, $sqlQuery) or die("database error:". mysqli_error($mysqli));
+        $data = array(
+            "message"   => "Record Deleted",
+            "status" => 1
+        );
+        echo json_encode($data);
     }
-    elseif (isset($_POST['user_type']) && $_POST['user_type'] === '2'){
-        $sqlQuery = "DELETE FROM provider_available_time WHERE pat_id ='" . $_POST['id'] . "';";
-    }
-	mysqli_query($mysqli, $sqlQuery) or die("database error:". mysqli_error($mysqli));
-	$data = array(
-		"message"   => "Record Deleted",
-		"status" => 1
-	);
-	echo json_encode($data);	
 }
 
 if ($_POST['action'] == 'add' && $_POST['u_id']) {
     if(isset($_POST['u_id']) && isset($_POST['user_type'])) {
-//        $getTimeSlot = "SELECT t_id FROM time_slot
-//                    WHERE weekday = '" . $_SESSION['weekday'] . "'AND time_block='" . $_SESSION['time_block'] . "'";
-//        $timeSlotResult = mysqli_query($mysqli, $sqlQuery) or die("database error:". mysqli_error($mysqli));
-//        $time_id = $timeSlotResult->fetch_object()[0]->t_id;
         $addArray = array();
         $addArray[] = $_POST['u_id'];
         if(isset($_POST['weekday'])) { $addArray[] = $_POST['weekday']; }
