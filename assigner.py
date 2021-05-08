@@ -36,10 +36,11 @@ class Schedule:
         for _ in range(len(prefCount)):
             # find a user with the least preferences/choices
             user = min(prefCount, key=prefCount.get)
+            count = prefCount[user]
             prefCount[user] = math.inf
-            if prefCount[user] > 0:
-                i = 0
+            if count > 0:
                 # find a time slot
+                i = 0
                 while timeCount[users[user][i]] == 0:
                     i += 1
                 timeslot = users[user][i]
@@ -108,7 +109,7 @@ class Schedule:
 
 if __name__ == '__main__':
     users = {
-        1: [1, 3, 4],
+        1: [1, 4],
         2: [1],
         3: [3, 5],
         4: [4]
