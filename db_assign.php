@@ -20,7 +20,7 @@ class Schedule {
 
     // utility schedule function
     public function execute() {
-        $this->prepare_data();
+        $this->update_data();
         $this->create_appointment();
         $this->insert_appointment();
     }
