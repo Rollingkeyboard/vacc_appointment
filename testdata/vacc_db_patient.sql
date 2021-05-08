@@ -1,0 +1,14 @@
+INSERT INTO vacc_db.patient (patient_id, patient_name, ssn, birth, gender, patient_address, patient_phone, patient_email, priority_level, max_distance, patient_longitude, patient_latitude) VALUES (1, 'Vito Koelpin', '9541285455', '1993-04-26', '0', '0768 Alex Ridge Suite 779,
+Emelyshire, KY 53394-8485', '7425593269', 'felicita73@example.org', 2, 29, -54.608986, 40.117845);
+INSERT INTO vacc_db.patient (patient_id, patient_name, ssn, birth, gender, patient_address, patient_phone, patient_email, priority_level, max_distance, patient_longitude, patient_latitude) VALUES (3, 'test02', '2216584587', '2001-01-01', '0', '149 9th St, San Francisco, CA, 94103', '1112223344', 'test01@example.org', 1, 25, 110, 42.4);
+INSERT INTO vacc_db.patient (patient_id, patient_name, ssn, birth, gender, patient_address, patient_phone, patient_email, priority_level, max_distance, patient_longitude, patient_latitude) VALUES (7, 'Dr. Rhett O''Connell', '3325628441', '1996-09-21', '0', '4013 Becker Stravenue Suite 663
+Buckridgebury, KY 32204', '9178458642', 'lesley.schneider@example.org', 3, 21, -54.804516, 40.513254);
+INSERT INTO vacc_db.patient (patient_id, patient_name, ssn, birth, gender, patient_address, patient_phone, patient_email, priority_level, max_distance, patient_longitude, patient_latitude) VALUES (10, 'Prof. Alexa Brakus V', '9548852461', '1981-07-19', '0', '2348 Penelope Spurs Apt. 349
+Auerfurt, MI 98966-5202', '9178447521', 'bednar.hellen@example.net', 1, 13, -54.809581, 40.914815);
+INSERT INTO vacc_db.patient (patient_id, patient_name, ssn, birth, gender, patient_address, patient_phone, patient_email, priority_level, max_distance, patient_longitude, patient_latitude) VALUES (11, 'Jamey Turner', '8546232274', '1983-07-02', '0', '6409 Buckridge Land Apt. 337
+Axelberg, VA 28968', '6462598774', 'owillms@example.org', 1, 25, -54.703652, 40.613481);
+INSERT INTO vacc_db.patient (patient_id, patient_name, ssn, birth, gender, patient_address, patient_phone, patient_email, priority_level, max_distance, patient_longitude, patient_latitude) VALUES (12, 'Prof. Virginie Ledner', '1257489659', '2000-10-12', '0', '56248 Tiana Lock Suite 232
+Hegmannberg, NJ 51365', '7542668974', 'parisian.hattie@example.org', 3, 27, -54.305521, 40.417485);
+INSERT INTO vacc_db.patient (patient_id, patient_name, ssn, birth, gender, patient_address, patient_phone, patient_email, priority_level, max_distance, patient_longitude, patient_latitude) VALUES (13, 'Holden Parisian', '3326574114', '1986-09-29', '0', '6016 Heller Summit
+Schroederland, SC 79799', '6469433267', 'lynch.easton@example.com', 2, 17, -54.206632, 40.212425);
+INSERT INTO vacc_db.patient (patient_id, patient_name, ssn, birth, gender, patient_address, patient_phone, patient_email, priority_level, max_distance, patient_longitude, patient_latitude) VALUES (14, 'Mike murray', '1312412444', '1986-11-29', 'male', 'addr', '1321554354', 'mmurray@example.org', 1, 22, -54.306632, 40.712425);

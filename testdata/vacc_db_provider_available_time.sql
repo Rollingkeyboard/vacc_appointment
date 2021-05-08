@@ -1,0 +1,12 @@
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (1, 2, 1, 1);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (2, 2, 1, 1);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (3, 5, 4, 1);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (4, 5, 3, 1);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (5, 4, 1, 2);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (6, 5, 7, 1);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (7, 2, 4, 2);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (8, 2, 3, 1);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (9, 2, 1, 1);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (10, 4, 5, 1);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (11, 6, 2, 2);
+INSERT INTO vacc_db.provider_available_time (pat_id, provider_id, w_id, t_id) VALUES (12, 2, 1, 3);

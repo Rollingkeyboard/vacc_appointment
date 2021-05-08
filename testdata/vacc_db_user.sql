@@ -1,0 +1,15 @@
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (1, 'felicita73@example.org', '7733d04642bf5653c9f5', 1);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (2, 'delilah.kirlin@example.com', '52c519a7cf8ecb815f98', 2);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (3, 'test01@example.org', '123123', 1);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (4, 'brakus.misael@example.net', '72773ef889e665c5108e', 2);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (5, 'ferne45@example.net', 'b3cb47bb8d6358afde6c', 2);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (6, 'erich.purdy@example.com', '5eddb195097ff52ec097', 2);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (7, 'lesley.schneider@example.org', 'f81d696aa28a740bb1c9', 1);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (8, 'senger.hulda@example.net', '2d73b4e75fa53126ded0', 2);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (9, 'gkohler@example.com', '0feaae5a73b87059ab9f', 2);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (10, 'bednar.hellen@example.net', '9751c3d58d489066079d', 1);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (11, 'owillms@example.org', '27d768ff011ab0b851cf', 1);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (12, 'parisian.hattie@example.org', 'efdc109820b9dd1f1c15', 1);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (13, 'lynch.easton@example.com', '5ec5d8bb6986b574a190', 1);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (14, 'mmurray@example.org', '3fda918eab70e79f5d31', 1);
+INSERT INTO vacc_db.user (user_id, user_name, user_password, role_id) VALUES (15, 'admin@admin.org', '123123', 3);
