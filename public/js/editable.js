@@ -1,6 +1,8 @@
 $( document ).ready(function() {
 	let uid = null;
 	let insert_new_row = false;
+	let user_type = "";
+
 	let html_btn = '<td name="buttons">'+
 		'<div className="btn-group pull-right">'+
 		'<button id="bEdit" type="button" className="btn btn-sm btn-default" '+
@@ -19,8 +21,8 @@ $( document ).ready(function() {
 		'</td>' +
 		'</tr>';
 
-	let cols = "";
-	cols += '<td><select class="form-control" aria-label="Default select example" name="weekday" id="weekday">' +
+	let col_w_val = "0";
+	let col_w = '<td><select class="form-control" aria-label="Default select example" name="weekday" id="weekday">' +
 		'<option value="0">Select...</option>' +
 		'<option value="1">Monday</option>' +
 		'<option value="2">Tuesday</option>' +
@@ -31,14 +33,16 @@ $( document ).ready(function() {
 		'<option value="7">Sunday</option>'+
 		'</select> </td>';
 
-	cols += '<td><select class="form-control" aria-label="Default select example" name="time_block" id="time_block">' +
+	let col_t_val = "0";
+	let col_t = '<td><select class="form-control" aria-label="Default select example" name="time_block" id="time_block">' +
 		'<option value="0">Select...</option>' +
 		'<option value="1">8AM</option>' +
 		'<option value="2">12PM</option>' +
 		'<option value="3">4PM</option>' +
 		'</select> </td>';
 
-	cols += '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+	let col_st_val = "0";
+	let col_st = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
 		'<option value="0">Select...</option>' +
 		'<option value="pending">pending</option>' +
 		'<option value="accepted">accepted</option>' +
@@ -51,12 +55,13 @@ $( document ).ready(function() {
 	$.ajax({
 		type: 'POST',
 		async: 'false',
-		url : "user_session_id_ajax.php",
+		url : "admin/AppointmentTime.php",
 		dataType: "json",
-		data: {action:'add_new_time'},
+		data: {user_id:'get_user_id', user_type:'get_user_type'},
 		success: function (response) {
 			if(response.status) {
-				uid = response.data
+				uid = response.role_sql_result.user_id;
+				user_type = response.role_sql_result.role_id;
 			}
 		}
 	});
@@ -65,18 +70,19 @@ $( document ).ready(function() {
 	  onEdit: function(columnsEd) {
 		  console.log(columnsEd[0]);
 		  if (insert_new_row === false){
+
 			  let record_id = columnsEd[0].childNodes[0].innerHTML;
 			  let user_id = columnsEd[0].childNodes[1].innerHTML;
-			  let user_weekday = columnsEd[0].childNodes[2].innerHTML;
-			  let user_time_block = columnsEd[0].childNodes[3].innerHTML;
-			  let user_status = columnsEd[0].childNodes[4].innerHTML;
+			  let user_weekday = $(columnsEd[0]).find("select:eq(0)").val();
+			  let user_time_block = $(columnsEd[0]).find("select:eq(1)").val();
+			  let user_status = $(columnsEd[0]).find("select:eq(2)").val();
 
 			  $.ajax({
 				  type: 'POST',
 				  url : "update_table_action.php",
 				  dataType: "json",
 				  data: {id:record_id, u_id:user_id, weekday:user_weekday
-					  , time_block:user_time_block, status:user_status, action:'edit'},
+					  , time_block:user_time_block, status:user_status, user_type: user_type, action:'edit'},
 				  success: function (response) {
 					  if(response.status) {
 						  // show update message
@@ -88,15 +94,15 @@ $( document ).ready(function() {
 		  }else{
 			  let record_id = columnsEd[0].childNodes[0].innerHTML;
 			  let user_id = columnsEd[0].childNodes[1].innerHTML;
-			  let user_weekday = columnsEd[0].childNodes[2].innerHTML;
-			  let user_time_block = columnsEd[0].childNodes[3].innerHTML;
-			  let user_status = columnsEd[0].childNodes[4].innerHTML;
+			  let user_weekday = $(columnsEd[0]).find("select:eq(0)").val();
+			  let user_time_block = $(columnsEd[0]).find("select:eq(1)").val();
+			  let user_status = $(columnsEd[0]).find("select:eq(2)").val();
 			  $.ajax({
 				  type: 'POST',
 				  url : "update_table_action.php",
 				  dataType: "json",
 				  data: {id:record_id, u_id:user_id, weekday:user_weekday
-					  , time_block:user_time_block, status:user_status, action:'add'},
+					  , time_block:user_time_block, status:user_status, user_type: user_type, action:'add'},
 				  success: function (response) {
 					  if(response.status) {
 						  // show update message
@@ -113,7 +119,7 @@ $( document ).ready(function() {
 			type: 'POST',
 			url : "update_table_action.php",
 			dataType: "json",
-			data: {id:record_id, action:'delete'},
+			data: {id:record_id, user_type: user_type, action:'delete'},
 			success: function (response) {
 				if(response.status) {
 					// show delete message
@@ -128,21 +134,10 @@ $( document ).ready(function() {
 		insert_new_row = true;
 		$('#main_table').append(
 			'<tr>' +
-			// <div className="dropdown">
-			//     <button className="btn btn-outline-secondary dropdown-toggle" type="button"
-			//             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			//         Active
-			//     </button>
-			//     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			//         <a className="dropdown-item" href="#">Active</a>
-			//         <a className="dropdown-item" href="#">Inactive</a>
-			//     </div>
-			// </div>
-			'<td>'+ 'new appointment' + '</selec></td><td>' + uid+ '</td>' +
-			cols +
-			html_btn
-			+ '</tr>'
+			'<td>'+ 'new appointment' + '</td><td>' + uid + '</td>' +
+			col_w + col_t + col_st +
+			html_btn +
+			'</tr>'
 		)
-		// rowAddNewAndEdit('editableTable', ['new appointment', uid, 1, 1,'pending']);
 	});
 });

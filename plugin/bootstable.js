@@ -37,6 +37,39 @@ var newColHtml2 = '<div class="btn-group pull-right">'+
     '<span class="glyphicon glyphicon-remove" > → </span>'+
     '</button>'+
     '</div>';
+
+let col_w_val = "0";
+let col_w = '<td><select class="form-control" aria-label="Default select example" name="weekday" id="weekday">' +
+    '<option value="0">Select...</option>' +
+    '<option value="1">Monday</option>' +
+    '<option value="2">Tuesday</option>' +
+    '<option value="3">Wednesday</option>' +
+    '<option value="4">Thursday</option>' +
+    '<option value="5">Friday</option>' +
+    '<option value="6">Saturday</option>' +
+    '<option value="7">Sunday</option>'+
+    '</select> </td>';
+
+let col_t_val = "0";
+let col_t = '<td><select class="form-control" aria-label="Default select example" name="time_block" id="time_block">' +
+    '<option value="0">Select...</option>' +
+    '<option value="1">8AM</option>' +
+    '<option value="2">12PM</option>' +
+    '<option value="3">4PM</option>' +
+    '</select> </td>';
+
+let col_st_val = "0";
+let col_st = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+    '<option value="0">Select...</option>' +
+    '<option value="pending">pending</option>' +
+    '<option value="accepted">accepted</option>' +
+    '<option value="declined">declined</option>' +
+    '<option value="cancelled">cancelled</option>' +
+    '<option value="vaccinated">vaccinated</option>' +
+    '<option value="noshow">noshow</option>' +
+    '</select> </td>';
+
+
 var colEdicHtml = '<td name="buttons">'+newColHtml+'</td>';
 $.fn.SetEditable = function (options) {
     var defaults = {
@@ -69,12 +102,12 @@ $.fn.SetEditable = function (options) {
         colsEdi = params.columnsEd.split(',');
     }
 };
-function IterarCamposEdit($cols, action) {
+function IteratCamposEdit($cols, action) {
 //Iterate through editable fields in a row
     var n = 0;
     $cols.each(function() {
         n++;
-        if ($(this).attr('name')=='buttons') return;  //Exclude buttons column
+        if ($(this).attr('name')==='buttons') return;  //Exclude buttons column
         if (!IsEditable(n-1)) return;   //It's not editable
         action($(this));
     });
@@ -85,14 +118,14 @@ function IterarCamposEdit($cols, action) {
             return true;  //todas son editable
         } else {  //hay filtro de campos
             for (var i = 0; i < colsEdi.length; i++) {
-                if (idx == colsEdi[i]) return true;
+                if (idx === colsEdi[i]) return true;
             }
             return false;  //no se encontró
         }
     }
 }
-function ModoEdicion($row) {
-    if ($row.attr('id')=='editing') {
+function EditMode($row) {
+    if ($row.attr('id')==='editing') {
         return true;
     } else {
         return false;
@@ -120,11 +153,11 @@ function butRowAcep(but) {
 //Acepta los cambios de la edición
     var $row = $(but).parents('tr');  //accede a la fila
     var $cols = $row.find('td');  //lee campos
-    if (!ModoEdicion($row)) return;  //Ya está en edición
+    if (!EditMode($row)) return;  //Ya está en edición
     //Está en edición. Hay que finalizar la edición
-    IterarCamposEdit($cols, function($td) {  //itera por la columnas
-        var cont = $td.find('input').val(); //lee contenido del input
-        $td.html(cont);  //fija contenido y elimina controles
+    IteratCamposEdit($cols, function($td) {  //iterate through columns
+        var cont = $td.find('select').val(); //read input content
+        $td.html(cont);  //pin content and remove controls
     });
     SetButtonsNormal(but);
     params.onEdit($row);
@@ -133,9 +166,9 @@ function butRowCancel(but) {
 //Rechaza los cambios de la edición
     var $row = $(but).parents('tr');  //accede a la fila
     var $cols = $row.find('td');  //lee campos
-    if (!ModoEdicion($row)) return;  //Ya está en edición
+    if (!EditMode($row)) return;  //Ya está en edición
     //Está en edición. Hay que finalizar la edición
-    IterarCamposEdit($cols, function($td) {  //itera por la columnas
+    IteratCamposEdit($cols, function($td) {  //itera por la columnas
         var cont = $td.find('div').html(); //lee contenido del div
         $td.html(cont);  //fija contenido y elimina controles
     });
@@ -145,15 +178,17 @@ function butRowEdit(but) {
     //Start the edition mode for a row.
     var $row = $(but).parents('tr');  //accede a la fila
     var $cols = $row.find('td');  //lee campos
-    if (ModoEdicion($row)) return;  //Ya está en edición
+    if (EditMode($row)) return;  //Ya está en edición
     //Pone en modo de edición
     var focused=false;  //flag
-    IterarCamposEdit($cols, function($td) {  //itera por la columnas
-        var cont = $td.html(); //lee contenido
+    IteratCamposEdit($cols, function($td) {  //iterate through columns
+        var cont = $td.html(); //read content
         //Save previous content in a hide <div>
         var div  = '<div style="display: none;">' + cont + '</div>';
-        var input= '<input class="form-control input-sm"  value="' + cont + '">';
+        // var input= '<input class="form-control input-sm"  value="' + cont + '">';
+        let input=cont;
         $td.html(div + input);  //Set new content
+        // $td.html(div);
         //Set focus to first column
         if (!focused) {
             $td.find('input').focus();
@@ -227,7 +262,7 @@ function TableToCSV(tabId, separator) {  //Convert table to CSV
     var $tab_en_edic = $("#" + tabId);  //Table source
     $tab_en_edic.find('tbody tr').each(function() {
         //Termina la edición si es que existe
-        if (ModoEdicion($(this))) {
+        if (EditMode($(this))) {
             $(this).find('#bAcep').click();  //acepta edición
         }
         var $cols = $(this).find('td');  //lee campos
