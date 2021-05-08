@@ -28,7 +28,7 @@ if (isset($_SESSION['rem'])) {
                 <div class="starter-template">
                     <h1 id="wellcome_header"></h1>
                     <p><a class="btn btn-primary btn-lg" role="button" id="add_new_row">Add New Appointment</a></p>
-                    <?php require_once 'user_session_id_ajax.php'; ?>
+                    <?php //require_once 'user_session_id_ajax.php'; ?>
                 </div>
             </div>
         </div>

@@ -69,23 +69,9 @@ $(document).ready(function () {
                         '<tr><th>Id</th><th>User Id</th><th>Weekday</th><th>Time Block</th><th>Status</th></tr>'
                     );
                     $.each(result_data, function (key, value) {
-                        // console.log("Key: " + key + ", Value: " + value);
                         const res_map = new Map(Object.entries(value));
-                        // console.log(res_map);
-
-                        // $('#main_table').each(function (index, row) {
                         $('#main_table').append(
                             '<tr id="row_' + key +'">' +
-                                // <div className="dropdown">
-                                //     <button className="btn btn-outline-secondary dropdown-toggle" type="button"
-                                //             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                //         Active
-                                //     </button>
-                                //     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                //         <a className="dropdown-item" href="#">Active</a>
-                                //         <a className="dropdown-item" href="#">Inactive</a>
-                                //     </div>
-                                // </div>
                                 '<td>'+ res_map.get("ppt_id") + '</td><td>' + res_map.get("patient_id")+ '</td>' +
                                  col_w + col_t + col_st + html_btn
                             + '</tr>'
@@ -103,18 +89,17 @@ $(document).ready(function () {
                         '<tr><th>Id</th><th>User Id</th><th>Weekday</th><th>Time Block</th><th>Status</th></tr>'
                     );
                     $.each(result_data, function (key, value) {
-                        // console.log("Key: " + key + ", Value: " + value);
                         const res_map = new Map(Object.entries(value));
-
-                        // $('#main_table').each(function (index, row) {
                         $('#main_table').append(
-                            '<tr>' +
-                                '<td>' + res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
-                                '<td>' + res_map.get("w_id") + '</td><td>' + res_map.get("t_id") + '</td>' +
-                                '<td>' + res_map.get("status") + '</td>' +
-                                html_btn
+                            '<tr id="row_' + key +'">' +
+                            '<td>'+ res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
+                            col_w + col_t + col_st + html_btn
                             + '</tr>'
-                        )
+                        );
+                        let curr_row = $("#row_"+key);
+                        curr_row.find("select:eq(0)").val(res_map.get("w_id"));
+                        curr_row.find("select:eq(1)").val(res_map.get("t_id"));
+                        curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
                 }else if(user_type === '3'){
                     $('#user_type_header').text("Administrator assigned appointment time slot are below.");
@@ -123,18 +108,17 @@ $(document).ready(function () {
                         '<tr><th>Id</th><th>Provider Id</th><th>Weekday</th><th>Time Block</th><th>Assign to patient</th></tr>'
                     );
                     $.each(result_data, function (key, value) {
-                        // console.log("Key: " + key + ", Value: " + value);
                         const res_map = new Map(Object.entries(value));
-
-                        // $('#main_table').each(function (index, row) {
                         $('#main_table').append(
-                            '<tr>' +
-                            '<td>' + res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
-                            '<td>' + res_map.get("w_id") + '</td><td>' + res_map.get("t_id") + '</td>' +
-                            '<td>' + res_map.get("status") + '</td>' +
-                            html_btn
+                            '<tr id="row_' + key +'">' +
+                            '<td>'+ res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
+                            col_w + col_t + col_st + html_btn
                             + '</tr>'
-                        )
+                        );
+                        let curr_row = $("#row_"+key);
+                        curr_row.find("select:eq(0)").val(res_map.get("w_id"));
+                        curr_row.find("select:eq(1)").val(res_map.get("t_id"));
+                        curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
                 }
 
