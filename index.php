@@ -27,6 +27,20 @@ if (isset($_SESSION['rem'])) {
             <div class="content">
                 <div class="starter-template">
                     <h1 id="wellcome_header"></h1>
+                    <div class="jumbotron">
+                        <div class="container">
+                            <div class="row">
+                                <h2 id="user_type_header"></h2>
+                                <table id="editableTable" class="table table-bordered">
+                                    <thead id="assign_to_table_head">
+
+                                    </thead>
+                                    <tbody id="main_table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <p><a class="btn btn-primary btn-lg" role="button" id="add_new_row">Add New Appointment</a></p>
                 </div>
             </div>

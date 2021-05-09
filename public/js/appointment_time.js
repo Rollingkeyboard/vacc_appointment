@@ -49,6 +49,11 @@ $(document).ready(function () {
         '<option value="vaccinated">vaccinated</option>' +
         '<option value="noshow">noshow</option>' +
         '</select> </td>';
+    let col_acc_dec = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+        '<option value="0">Select...</option>' +
+        '<option value="accepted">accepted</option>' +
+        '<option value="declined">declined</option>' +
+        '</select> </td>';
     // cols = col_w + col_t + col_st;
 
     $.ajax({
@@ -66,20 +71,36 @@ $(document).ready(function () {
                     $('#user_type_header').text("Patient preferred time slot are below.");
                     $('#wellcome_header').text("Hello, "+ u_id +" Welcome To Vaccination Appointment Page ");
                     $('#assign_to_table_head').append(
-                        '<tr><th>Id</th><th>User Id</th><th>Weekday</th><th>Time Block</th><th>Status</th></tr>'
+                        '<tr><th>Id</th><th>User Id</th><th>Weekday</th><th>Time Block</th><th>Status</th>' +
+                        '<th>Action</th>th></tr>'
                     );
                     $.each(result_data, function (key, value) {
                         const res_map = new Map(Object.entries(value));
+                        if (res_map.get("status") === "pending"){
+                            col_acc_dec = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+                                '<option value="0">Select...</option>' +
+                                '<option value="accepted">accepted</option>' +
+                                '<option value="declined">declined</option>' +
+                                '</select> </td>';
+                        }
+                        else if (res_map.get("status") === "accepted"){
+                            col_acc_dec = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+                                '<option value="0">Select...</option>' +
+                                '<option value="cancel">cancel</option>' +
+                                '</select> </td>';
+                        }else {
+                            col_acc_dec = '<td>-</td>';
+                        }
                         $('#main_table').append(
                             '<tr id="row_' + key +'">' +
                                 '<td>'+ res_map.get("ppt_id") + '</td><td>' + res_map.get("patient_id")+ '</td>' +
-                                 col_w + col_t + col_st + html_btn
+                                 col_w + col_t + '<td>'+ res_map.get("status") +'</td>' + col_acc_dec + html_btn
                             + '</tr>'
                         );
                         let curr_row = $("#row_"+key);
                         curr_row.find("select:eq(0)").val(res_map.get("w_id"));
                         curr_row.find("select:eq(1)").val(res_map.get("t_id"));
-                        curr_row.find("select:eq(2)").val(res_map.get("status"));
+                        // curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
 
                 }else if(user_type === '2'){
@@ -93,13 +114,13 @@ $(document).ready(function () {
                         $('#main_table').append(
                             '<tr id="row_' + key +'">' +
                             '<td>'+ res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
-                            col_w + col_t + col_st + html_btn
+                            col_w + col_t + '<td>'+ res_map.get("status") +'</td>' + html_btn
                             + '</tr>'
                         );
                         let curr_row = $("#row_"+key);
                         curr_row.find("select:eq(0)").val(res_map.get("w_id"));
                         curr_row.find("select:eq(1)").val(res_map.get("t_id"));
-                        curr_row.find("select:eq(2)").val(res_map.get("status"));
+                        // curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
                 }else if(user_type === '3'){
                     $('#user_type_header').text("Administrator assigned appointment time slot are below.");
@@ -118,7 +139,7 @@ $(document).ready(function () {
                         let curr_row = $("#row_"+key);
                         curr_row.find("select:eq(0)").val(res_map.get("w_id"));
                         curr_row.find("select:eq(1)").val(res_map.get("t_id"));
-                        curr_row.find("select:eq(2)").val(res_map.get("status"));
+                        // curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
                 }
 

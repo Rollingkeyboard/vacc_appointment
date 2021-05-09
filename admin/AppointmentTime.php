@@ -59,9 +59,13 @@ class AppointmentTime
             $return_data = array();
             if ($this->user_type === '1')
             {
-                $ppt_sql_query = "SELECT ppt_id, patient_id, w_id, t_id, 'NA' AS status 
-                    FROM patient_preferred_time
-                    WHERE patient_id = '" . $_SESSION['user']. "';";
+                $ppt_sql_query = "
+                    SELECT ppt.ppt_id, ppt.patient_id, ppt.w_id, ppt.t_id,
+                           IF(status IS NULL, 'NA', status) AS status
+                    FROM appointment a JOIN provider_available_time pat on a.pat_id = pat.pat_id
+                        RIGHT JOIN patient_preferred_time ppt
+                            on a.patient_id = ppt.patient_id AND pat.w_id = ppt.w_id AND pat.t_id = ppt.t_id
+                    WHERE ppt.patient_id = '" . $_SESSION['user']. "';";
                 $result = $this->db_con->query($ppt_sql_query);
                 while ( $row = $result->fetch_assoc())  {
                     $return_data[]=$row;
@@ -69,9 +73,12 @@ class AppointmentTime
             }
             elseif ($this->user_type === '2')
             {
-                $_pat_sql_query = "SELECT pat_id, provider_id, w_id, t_id
-                    FROM provider_available_time 
-                    WHERE provider_id ='" . $_SESSION['user'] . "';";
+                $_pat_sql_query = "
+                    SELECT pat.pat_id, pat.provider_id, pat.w_id, pat.t_id,
+                           IF(status IS NULL, 'NA', status) AS status
+                    FROM provider_available_time pat
+                        LEFT JOIN appointment a on pat.pat_id = a.pat_id
+                    WHERE pat.provider_id ='" . $_SESSION['user'] . "';";
                 $result = $this->db_con->query($_pat_sql_query);
                 while ( $row = $result->fetch_assoc())  {
                     $return_data[]=$row;
@@ -81,9 +88,16 @@ class AppointmentTime
                 /*
                  * some admin sql
                  */
-                $admin_sql_query = "SELECT pat_id, provider_id, w_id, t_id
-                    FROM provider_available_time 
-                    WHERE provider_id ='" . $_SESSION['user'] . "';";
+                $admin_sql_query = "
+                    WITH pat_status AS (
+                        SELECT pat.pat_id, pat.provider_id, pat.w_id, pat.t_id,
+                               IF(status IS NULL, 'NA', status) AS status
+                        FROM provider_available_time pat
+                                 LEFT JOIN appointment a on pat.pat_id = a.pat_id
+                    )
+                    SELECT * FROM pat_status
+                    WHERE status NOT IN ('pending','vaccinated', 'accepted');
+                    ";
                 $result = $this->db_con->query($admin_sql_query);
                 while ( $row = $result->fetch_assoc())  {
                     $return_data[]=$row;

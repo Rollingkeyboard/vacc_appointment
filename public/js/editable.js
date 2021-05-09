@@ -70,13 +70,12 @@ $( document ).ready(function() {
 	  onEdit: function(columnsEd) {
 		  console.log(columnsEd[0]);
 		  if (insert_new_row === false){
-
 			  let record_id = columnsEd[0].childNodes[0].innerHTML;
 			  let user_id = columnsEd[0].childNodes[1].innerHTML;
 			  let user_weekday = $(columnsEd[0]).find("select:eq(0)").val();
 			  let user_time_block = $(columnsEd[0]).find("select:eq(1)").val();
 			  let user_status = $(columnsEd[0]).find("select:eq(2)").val();
-
+			  console.log(user_status);
 			  $.ajax({
 				  type: 'POST',
 				  url : "update_table_action.php",
@@ -88,6 +87,8 @@ $( document ).ready(function() {
 						  // show update message
 						  // Edit success
 						  alert(response.message)
+					  }else{
+					  	alert(response.message)
 					  }
 				  }
 			  });
@@ -97,6 +98,7 @@ $( document ).ready(function() {
 			  let user_weekday = $(columnsEd[0]).find("select:eq(0)").val();
 			  let user_time_block = $(columnsEd[0]).find("select:eq(1)").val();
 			  let user_status = $(columnsEd[0]).find("select:eq(2)").val();
+
 			  $.ajax({
 				  type: 'POST',
 				  url : "update_table_action.php",
@@ -135,7 +137,7 @@ $( document ).ready(function() {
 		$('#main_table').append(
 			'<tr>' +
 			'<td>'+ 'new appointment' + '</td><td>' + uid + '</td>' +
-			col_w + col_t + col_st +
+			col_w + col_t + '<td>NA</td>' + '<td>-</td>' +
 			html_btn +
 			'</tr>'
 		)
