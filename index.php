@@ -19,29 +19,27 @@ if (isset($_SESSION['rem'])) {
     <?php require_once 'public/layouts/header.php' ?>
 
     <body>
-        <!-- page navigation bar -->
-        <?php require_once 'public/layouts/nav.php' ?>
+    <!-- navi -->
+    <?php require_once 'public/layouts/nav.php' ?>
 
-        <!-- main button -->
-        <div class="container">
-            <div class="content">
-                <div class="starter-template">
-                    <h1 id="wellcome_header"></h1>
-                    <div class="jumbotron">
-                        <div class="container">
-                            <div class="row">
-                                <h2 id="user_type_header"></h2>
-                                <table id="editableTable" class="table table-bordered">
-                                    <thead id="assign_to_table_head">
+    <!-- page content -->
+    <div class="container">
+        <div class="content">
+            <div class="starter-template">
+                <h1 id="wellcome_header"></h1>
+                <div class="jumbotron" style="position: absolute; height: 60%; overflow-y: scroll;">
+                    <div class="container">
+                        <div class="row">
+                        <h2 id="user_type_header"></h2>
+                        <table id="editableTable" class="table table-bordered">
+                            <thead id="assign_to_table_head">
 
-                                    </thead>
-                                    <tbody id="main_table">
-                                    </tbody>
-                                </table>
-                            </div>
+                            </thead>
+                            <tbody id="main_table">
+                            </tbody>
+                        </table>
                         </div>
                     </div>
-                    <p><a class="btn btn-primary btn-lg" role="button" id="add_new_row">Add New Appointment</a></p>
                 </div>
             </div>
         </div>
