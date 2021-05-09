@@ -4,7 +4,7 @@ date_default_timezone_set('America/New_York');
 define('DB_HOST', '127.0.0.1');
 define('DB_NAME', 'vacc_db');
 define('DB_USER', 'root');
-define('DB_PWD', 'root');
+define('DB_PWD', 'babysuse');
 
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PWD, DB_NAME);
 

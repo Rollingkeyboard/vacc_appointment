@@ -177,7 +177,7 @@ if (isset($_SESSION['user'])) {
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal" style="float: left;">Close</button>
-                                        <input type="reset" class="btn btn-warning" value ="reset" />
+                                    <input type="reset" class="btn btn-warning" value ="reset" />
                                     <button type="submit" class="btn btn-primary" id="reg">Register</button>
                                 </div>
                             </form>

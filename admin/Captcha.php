@@ -1,7 +1,4 @@
 <?php 
-/**
-* Captcha
-*/
 class Captcha
 {
 	private $code_number;
