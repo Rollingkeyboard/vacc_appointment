@@ -28,7 +28,7 @@ if (isset($_SESSION['rem'])) {
         <div class="content">
             <div class="starter-template">
             <h1 id="wellcome_header"></h1>
-                <div class="jumbotron">
+                <div class="jumbotron" style="position: absolute; height: 60%; overflow-y: scroll;">
                       <div class="container">
                           <div class="row">
                               <h2 id="user_type_header"></h2>
