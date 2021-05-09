@@ -46,6 +46,21 @@ if ($_POST['action'] == 'edit' && $_POST['id']) {
         echo json_encode($data);
 	}
 }
+if (isset($_POST['action']) && $_POST['action'] == 'assign' && isset($_POST['user_type']) && $_POST['user_type'] === '3'){
+    $addArray = array();
+    if(isset($_POST['pa_id'])) { $addArray[] = $_POST['pa_id']; }
+    if(isset($_POST['id'])) { $addArray[] = $_POST['id']; }
+    if(isset($_POST['pd_id'])) { $addArray[] = 'pending';}
+    $addField = "'" .implode("','", $addArray)."'";
+//    mysqli_real_escape_string($mysqli, $addField);
+    $sqlQuery = "INSERT INTO appointment (patient_id, pat_id, status) VALUES ($addField);";
+    mysqli_query($mysqli, $sqlQuery) or die("database error:". mysqli_error($mysqli));
+    $data = array(
+        "message"	=> "Patient Assigned",
+        "status" => 1
+    );
+    echo json_encode($data);
+}
 if ($_POST['action'] == 'delete' && $_POST['id']) {
     if (isset($_POST['user_type']) ){
         if ($_POST['user_type'] === '1'){
@@ -88,7 +103,7 @@ if ($_POST['action'] == 'add' && $_POST['u_id']) {
             $sqlQuery = "INSERT INTO provider_available_time (provider_id, w_id, t_id)
                     VALUES ($addField);";
         }
-        $sql_result = mysqli_query($mysqli, $sqlQuery) or die("database error:". mysqli_error($mysqli));
+        mysqli_query($mysqli, $sqlQuery) or die("database error:". mysqli_error($mysqli));
         $data = array(
             "message"	=> "Record Added",
             "status" => 1

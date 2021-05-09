@@ -88,26 +88,34 @@ class AppointmentTime
                 /*
                  * some admin sql
                  */
+                $patient_return_data = array();
                 $admin_sql_query = "
-                    WITH pat_status AS (
-                        SELECT pat.pat_id, pat.provider_id, pat.w_id, pat.t_id,
-                               IF(status IS NULL, 'NA', status) AS status
-                        FROM provider_available_time pat
-                                 LEFT JOIN appointment a on pat.pat_id = a.pat_id
-                    )
-                    SELECT * FROM pat_status
-                    WHERE status NOT IN ('pending','vaccinated', 'accepted');
+                    SELECT pat.pat_id, pat.provider_id, pat.w_id, pat.t_id
+                    FROM provider_available_time pat
+                    WHERE pat.pat_id NOT IN (SELECT appointment.pat_id FROM appointment
+                        WHERE status IN ('pending', 'vaccinated', 'accepted'));
                     ";
                 $result = $this->db_con->query($admin_sql_query);
                 while ( $row = $result->fetch_assoc())  {
                     $return_data[]=$row;
+                }
+                $patient_sql_query = "
+                    SELECT patient_id, patient_name 
+                    FROM patient
+                    WHERE patient_id NOT IN (SELECT appointment.pat_id FROM appointment
+                        WHERE status IN ('pending', 'vaccinated', 'accepted'));
+                    ";
+                $patient_sql_result = $this->db_con->query($patient_sql_query);
+                while ( $row = $patient_sql_result->fetch_assoc())  {
+                    $patient_return_data[]=$row;
                 }
             }
             $data = array(
                 "message"   => "Get user appointment_time",
                 "status" => 1,
                 "role_sql_result" => $role_row,
-                "time_slot_sql_result" => $return_data
+                "time_slot_sql_result" => $return_data,
+                "patient_sql_result" => $patient_return_data
             );
             echo json_encode($data);
     }

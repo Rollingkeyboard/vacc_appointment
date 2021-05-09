@@ -54,6 +54,8 @@ $(document).ready(function () {
         '<option value="accepted">accepted</option>' +
         '<option value="declined">declined</option>' +
         '</select> </td>';
+    let patient_list ='';
+
     // cols = col_w + col_t + col_st;
 
     $.ajax({
@@ -86,7 +88,7 @@ $(document).ready(function () {
                         else if (res_map.get("status") === "accepted"){
                             col_acc_dec = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
                                 '<option value="0">Select...</option>' +
-                                '<option value="cancel">cancel</option>' +
+                                '<option value="cancelled">cancelled</option>' +
                                 '</select> </td>';
                         }else {
                             col_acc_dec = '<td>-</td>';
@@ -123,6 +125,15 @@ $(document).ready(function () {
                         // curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
                 }else if(user_type === '3'){
+                    let patient_result_data = response.patient_sql_result;
+                    patient_result_data.forEach(element =>
+                        patient_list+='<option value="' + element.patient_id + '">'
+                            + element.patient_id + '_' + element.patient_name +'</option>'
+                    );
+                    let col_pat_list = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+                        '<option value="0">Select...</option>' +
+                        patient_list +
+                        '</select> </td>';
                     $('#user_type_header').text("Administrator assigned appointment time slot are below.");
                     $('#wellcome_header').text("Hello, Administrator! Welcome To Vaccination Appointment Page ");
                     $('#assign_to_table_head').append(
@@ -133,12 +144,13 @@ $(document).ready(function () {
                         $('#main_table').append(
                             '<tr id="row_' + key +'">' +
                             '<td>'+ res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
-                            col_w + col_t + col_st + html_btn
+                            '<td>'+ res_map.get("w_id") + '</td>' + '<td>'+ res_map.get("t_id") + '</td>'
+                            + col_pat_list + html_btn
                             + '</tr>'
                         );
                         let curr_row = $("#row_"+key);
-                        curr_row.find("select:eq(0)").val(res_map.get("w_id"));
-                        curr_row.find("select:eq(1)").val(res_map.get("t_id"));
+                        // curr_row.find("select:eq(0)").val(res_map.get("w_id"));
+                        // curr_row.find("select:eq(1)").val(res_map.get("t_id"));
                         // curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
                 }
