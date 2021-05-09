@@ -203,7 +203,7 @@ function priority_confirm(elem){
         dataType: "json",
         data: {
             pa_id: patient_id, pa_name: patient_name, pri_lv: priority_level,
-            user_type: user_type, action: 'priority'
+            action: 'priority'
         },
         success: function (response) {
             if (response.status) {
