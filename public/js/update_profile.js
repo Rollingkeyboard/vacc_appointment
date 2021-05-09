@@ -14,13 +14,16 @@ $(document).ready(function() {
                 user_type = response.role_sql.role_id;
                 if (user_type === '1'){
                     $('#add_new_row').removeClass("hidden")
+                    $('#priority_assign').addClass("hidden");
                 }
                 else if (user_type === '2'){
                     $('#add_new_row').removeClass("hidden")
+                    $('#priority_assign').addClass("hidden");
                 }
                 else if (user_type === '3'){
                     // console.log(response.message);
-                    $('#add_new_row').addClass("hidden")
+                    $('#add_new_row').addClass("hidden");
+                    $('#priority_assign').removeClass("hidden");
                 }
             }
         }

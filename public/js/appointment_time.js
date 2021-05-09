@@ -55,6 +55,12 @@ $(document).ready(function () {
         '<option value="declined">declined</option>' +
         '</select> </td>';
     let patient_list ='';
+    let col_pripority = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+        '<option value="0">Select...</option>' +
+        '<option value="1">1</option>' +
+        '<option value="2">2</option>' +
+        '<option value="3">3</option>' +
+        '</select> </td>';
 
     // cols = col_w + col_t + col_st;
 
@@ -126,14 +132,16 @@ $(document).ready(function () {
                     });
                 }else if(user_type === '3'){
                     let patient_result_data = response.patient_sql_result;
-                    patient_result_data.forEach(element =>
-                        patient_list+='<option value="' + element.patient_id + '">'
-                            + element.patient_id + '_' + element.patient_name +'</option>'
+                    let priority_result_data = response.priority_sql_result;
+                    patient_result_data.forEach(patient =>
+                        patient_list+='<option value="' + patient.patient_id + '">'
+                            + patient.patient_id + '_' + patient.patient_name +'</option>'
                     );
                     let col_pat_list = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
                         '<option value="0">Select...</option>' +
                         patient_list +
                         '</select> </td>';
+
                     $('#user_type_header').text("Administrator assigned appointment time slot are below.");
                     $('#wellcome_header').text("Hello, Administrator! Welcome To Vaccination Appointment Page ");
                     $('#assign_to_table_head').append(
@@ -153,6 +161,19 @@ $(document).ready(function () {
                         // curr_row.find("select:eq(1)").val(res_map.get("t_id"));
                         // curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
+
+                    $('#priority_assign_head').append(
+                        '<tr><th>Id</th><th>Patient Name</th><th>Priority Level</th></tr>'
+                    );
+                    $('#priority_assign_body').append(
+                        priority_result_data.forEach(patient =>
+                            '<tr>' +
+                            '<td>' + patient.patient_id + '</td>' +
+                            '<td>' + patient.patient_name + '</td>' +
+                            col_pripority +
+                            '</tr>'
+                        )
+                    );
                 }
 
             }

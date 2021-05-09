@@ -61,6 +61,20 @@ if (isset($_POST['action']) && $_POST['action'] == 'assign' && isset($_POST['use
     );
     echo json_encode($data);
 }
+
+if (isset($_POST['action']) && $_POST['action'] == 'priority' && isset($_POST['user_type']) && $_POST['user_type'] === '3'){
+    $update_field = '';
+    if(isset($_POST['pri_lv'])) { $update_field = "priority='".$_POST['pri_lv']."'";}
+//    mysqli_real_escape_string($mysqli, $addField);
+    $sql_query = "UPDATE patient SET $update_field WHERE patient_id = '" . $_POST['pri_lv'] . "';";
+    mysqli_query($mysqli, $sql_query) or die("database error:". mysqli_error($mysqli));
+    $data = array(
+        "message"	=> "Priority Assigned",
+        "status" => 1
+    );
+    echo json_encode($data);
+}
+
 if ($_POST['action'] == 'delete' && $_POST['id']) {
     if (isset($_POST['user_type']) ){
         if ($_POST['user_type'] === '1'){

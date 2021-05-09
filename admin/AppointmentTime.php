@@ -89,6 +89,7 @@ class AppointmentTime
                  * some admin sql
                  */
                 $patient_return_data = array();
+                $priority_return_data = array();
                 $admin_sql_query = "
                     SELECT pat.pat_id, pat.provider_id, pat.w_id, pat.t_id
                     FROM provider_available_time pat
@@ -109,13 +110,24 @@ class AppointmentTime
                 while ( $row = $patient_sql_result->fetch_assoc())  {
                     $patient_return_data[]=$row;
                 }
+
+                $priority_sql_query = "
+                    SELECT patient_id, patient_name, priority_level
+                    FROM patient
+                    WHERE priority_level IS NULL;
+                    ";
+                $priority_sql_result = $this->db_con->query($priority_sql_query);
+                while ( $row = $priority_sql_result->fetch_assoc())  {
+                    $priority_return_data[]=$row;
+                }
             }
             $data = array(
                 "message"   => "Get user appointment_time",
                 "status" => 1,
                 "role_sql_result" => $role_row,
                 "time_slot_sql_result" => $return_data,
-                "patient_sql_result" => $patient_return_data
+                "patient_sql_result" => $patient_return_data,
+                "priority_sql_result" => $priority_return_data
             );
             echo json_encode($data);
     }
