@@ -41,6 +41,7 @@ if (isset($_SESSION['rem'])) {
                         </div>
                     </div>
                 </div>
+                <p><a class="btn btn-primary btn-lg" role="button" id="add_new_row">add new appointment</a></p>
             </div>
         </div>
 

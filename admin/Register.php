@@ -176,8 +176,10 @@ class Register
         $this->phone = $_POST['phone'];
         $this->address = $_POST['address'];
         $this->max_distance = $_POST['max_distance'];
-        $this->longitude = -122;
-        $this->latitude = 37;
+
+        $coordinate_arr = geocode($this->address, true);
+        $this->longitude = $coordinate_arr[0];
+        $this->latitude = $coordinate_arr[1];
         /*
          * web server feature
          */
