@@ -1,0 +1,14 @@
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (1, 12, 4, 'accepted');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (3, 11, 8, 'noshow');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (4, 11, 7, 'cancelled');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (5, 3, 7, 'pending');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (6, 7, 9, 'pending');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (7, 11, 8, 'cancelled');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (8, 13, 7, 'noshow');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (9, 1, 1, 'pending');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (10, 11, 10, 'cancelled');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (11, 13, 7, 'pending');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (12, 10, 10, 'vaccinated');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (13, 12, 8, 'declined');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (14, 12, 10, 'declined');
+INSERT INTO vacc_db.appointment (appointment_id, patient_id, pat_id, status) VALUES (15, 13, 3, 'noshow');
