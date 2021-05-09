@@ -66,29 +66,29 @@ $( document ).ready(function() {
 		}
 	});
 
-	$('#priority_assign').SetEditable({
-		onEdit: function (columnsEd) {
-			if (user_type === '3') {
-				let patient_id = columnsEd[0].childNodes[0].innerHTML;
-				let patient_name = columnsEd[0].childNodes[1].innerHTML;
-				let priority_level = $(columnsEd[0]).find("select:eq(0)").val();
-				$.ajax({
-					type: 'POST',
-					url: "update_table_action.php",
-					dataType: "json",
-					data: {
-						pa_id: patient_id, pa_name: patient_name, pri_lv: priority_level,
-						 user_type: user_type, action: 'priority'
-					},
-					success: function (response) {
-						if (response.status) {
-							// show update message
-							// Add success
-							alert(response.message)
-						}
+	$(".priority_btn").click(function () {
+		let row = $(this).parent();
+		console.log(row);
+		if (user_type === '3') {
+			let patient_id = row.childNodes[0].innerHTML;
+			let patient_name = row.childNodes[1].innerHTML;
+			let priority_level = $(row).find("select:eq(0)").val();
+			$.ajax({
+				type: 'POST',
+				url: "update_table_action.php",
+				dataType: "json",
+				data: {
+					pa_id: patient_id, pa_name: patient_name, pri_lv: priority_level,
+					user_type: user_type, action: 'priority'
+				},
+				success: function (response) {
+					if (response.status) {
+						// show update message
+						// Add success
+						alert(response.message)
 					}
-				});
-			}
+				}
+			});
 		}
 	});
 

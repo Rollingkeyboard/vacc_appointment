@@ -20,6 +20,7 @@ $(document).ready(function () {
         '</tr>';
 
 
+
     let col_w_val = "0";
     let col_w = '<td><select class="form-control" aria-label="Default select example" name="weekday" id="weekday">' +
         '<option value="0">Select...</option>' +
@@ -56,12 +57,13 @@ $(document).ready(function () {
         '<option value="declined">declined</option>' +
         '</select> </td>';
     let patient_list ='';
-    let col_pripority = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
+    let col_pripority = '<td><select class="form-control" aria-label="Default select example" name="status" id="priority_lv">' +
         '<option value="0">Select...</option>' +
         '<option value="1">1</option>' +
         '<option value="2">2</option>' +
         '<option value="3">3</option>' +
         '</select> </td>';
+
 
     // cols = col_w + col_t + col_st;
 
@@ -165,12 +167,19 @@ $(document).ready(function () {
                     $('#priority_assign_head').append(
                         '<tr><th>Id</th><th>Patient Name</th><th>Priority Level</th></tr>'
                     );
+
+
+                    let click_btn = '<td name="buttons">'+
+                        '<button type="button" class="priority_btn" onclick="priority_confirm(this)">Confirm</button>' +
+                        '</td>';
+
+
                     priority_result_data.forEach(patient =>
                         $('#priority_assign_body').append(
                             '<tr>' +
                             '<td>' + patient.patient_id + '</td>' +
                             '<td>' + patient.patient_name + '</td>' +
-                            col_pripority + html_btn +
+                            col_pripority + click_btn +
                             '</tr>'
                         ));
                 }
@@ -179,3 +188,29 @@ $(document).ready(function () {
         }
     });
 });
+
+function priority_confirm(elem){
+    let row = elem.parentNode.parentNode;
+    console.log(row);
+    let patient_id = row.childNodes[0].innerHTML;
+    let patient_name = row.childNodes[1].innerHTML;
+    console.log(row.childNodes[2].childNodes[0].selectedIndex);
+    let priority_level = row.childNodes[2].childNodes[0].selectedIndex;
+
+    $.ajax({
+        type: 'POST',
+        url: "update_table_action.php",
+        dataType: "json",
+        data: {
+            pa_id: patient_id, pa_name: patient_name, pri_lv: priority_level,
+            user_type: user_type, action: 'priority'
+        },
+        success: function (response) {
+            if (response.status) {
+                // show update message
+                // Add success
+                alert(response.message)
+            }
+        }
+    });
+}
