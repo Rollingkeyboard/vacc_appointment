@@ -19,6 +19,7 @@ $(document).ready(function () {
         '</td>' +
         '</tr>';
 
+
     let col_w_val = "0";
     let col_w = '<td><select class="form-control" aria-label="Default select example" name="weekday" id="weekday">' +
         '<option value="0">Select...</option>' +
@@ -75,67 +76,66 @@ $(document).ready(function () {
                 u_id = response.role_sql_result.user_id;
                 user_type = response.role_sql_result.role_id;
                 let result_data = response.time_slot_sql_result;
-                if (user_type === '1'){
+                if (user_type === '1') {
                     $('#user_type_header').text("Patient preferred time slot are below.");
-                    $('#wellcome_header').text("Hello, "+ u_id +" Welcome To Vaccination Appointment Page ");
+                    $('#wellcome_header').text("Hello, " + u_id + " Welcome To Vaccination Appointment Page ");
                     $('#assign_to_table_head').append(
                         '<tr><th>Id</th><th>User Id</th><th>Weekday</th><th>Time Block</th><th>Status</th>' +
                         '<th>Action</th>th></tr>'
                     );
                     $.each(result_data, function (key, value) {
                         const res_map = new Map(Object.entries(value));
-                        if (res_map.get("status") === "pending"){
+                        if (res_map.get("status") === "pending") {
                             col_acc_dec = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
                                 '<option value="0">Select...</option>' +
                                 '<option value="accepted">accepted</option>' +
                                 '<option value="declined">declined</option>' +
                                 '</select> </td>';
-                        }
-                        else if (res_map.get("status") === "accepted"){
+                        } else if (res_map.get("status") === "accepted") {
                             col_acc_dec = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
                                 '<option value="0">Select...</option>' +
                                 '<option value="cancelled">cancelled</option>' +
                                 '</select> </td>';
-                        }else {
+                        } else {
                             col_acc_dec = '<td>-</td>';
                         }
                         $('#main_table').append(
-                            '<tr id="row_' + key +'">' +
-                                '<td>'+ res_map.get("ppt_id") + '</td><td>' + res_map.get("patient_id")+ '</td>' +
-                                 col_w + col_t + '<td>'+ res_map.get("status") +'</td>' + col_acc_dec + html_btn
+                            '<tr id="row_' + key + '">' +
+                            '<td>' + res_map.get("ppt_id") + '</td><td>' + res_map.get("patient_id") + '</td>' +
+                            col_w + col_t + '<td>' + res_map.get("status") + '</td>' + col_acc_dec + html_btn
                             + '</tr>'
                         );
-                        let curr_row = $("#row_"+key);
+                        let curr_row = $("#row_" + key);
                         curr_row.find("select:eq(0)").val(res_map.get("w_id"));
                         curr_row.find("select:eq(1)").val(res_map.get("t_id"));
                         // curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
 
-                }else if(user_type === '2'){
+                } else if (user_type === '2') {
                     $('#user_type_header').text("Provider available time slot are below.");
-                    $('#wellcome_header').text("Hello, "+ u_id +" Welcome To Vaccination Appointment Page ");
+                    $('#wellcome_header').text("Hello, " + u_id + " Welcome To Vaccination Appointment Page ");
                     $('#assign_to_table_head').append(
                         '<tr><th>Id</th><th>User Id</th><th>Weekday</th><th>Time Block</th><th>Status</th></tr>'
                     );
                     $.each(result_data, function (key, value) {
                         const res_map = new Map(Object.entries(value));
                         $('#main_table').append(
-                            '<tr id="row_' + key +'">' +
-                            '<td>'+ res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
-                            col_w + col_t + '<td>'+ res_map.get("status") +'</td>' + html_btn
+                            '<tr id="row_' + key + '">' +
+                            '<td>' + res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id") + '</td>' +
+                            col_w + col_t + '<td>' + res_map.get("status") + '</td>' + html_btn
                             + '</tr>'
                         );
-                        let curr_row = $("#row_"+key);
+                        let curr_row = $("#row_" + key);
                         curr_row.find("select:eq(0)").val(res_map.get("w_id"));
                         curr_row.find("select:eq(1)").val(res_map.get("t_id"));
                         // curr_row.find("select:eq(2)").val(res_map.get("status"));
                     });
-                }else if(user_type === '3'){
+                } else if (user_type === '3') {
                     let patient_result_data = response.patient_sql_result;
                     let priority_result_data = response.priority_sql_result;
                     patient_result_data.forEach(patient =>
-                        patient_list+='<option value="' + patient.patient_id + '">'
-                            + patient.patient_id + '_' + patient.patient_name +'</option>'
+                        patient_list += '<option value="' + patient.patient_id + '">'
+                            + patient.patient_id + '_' + patient.patient_name + '</option>'
                     );
                     let col_pat_list = '<td><select class="form-control" aria-label="Default select example" name="status" id="status">' +
                         '<option value="0">Select...</option>' +
@@ -150,13 +150,13 @@ $(document).ready(function () {
                     $.each(result_data, function (key, value) {
                         const res_map = new Map(Object.entries(value));
                         $('#main_table').append(
-                            '<tr id="row_' + key +'">' +
-                            '<td>'+ res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id")+ '</td>' +
-                            '<td>'+ res_map.get("w_id") + '</td>' + '<td>'+ res_map.get("t_id") + '</td>'
+                            '<tr id="row_' + key + '">' +
+                            '<td>' + res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id") + '</td>' +
+                            '<td>' + res_map.get("w_id") + '</td>' + '<td>' + res_map.get("t_id") + '</td>'
                             + col_pat_list + html_btn
                             + '</tr>'
                         );
-                        let curr_row = $("#row_"+key);
+                        let curr_row = $("#row_" + key);
                         // curr_row.find("select:eq(0)").val(res_map.get("w_id"));
                         // curr_row.find("select:eq(1)").val(res_map.get("t_id"));
                         // curr_row.find("select:eq(2)").val(res_map.get("status"));
@@ -165,15 +165,14 @@ $(document).ready(function () {
                     $('#priority_assign_head').append(
                         '<tr><th>Id</th><th>Patient Name</th><th>Priority Level</th></tr>'
                     );
-                    $('#priority_assign_body').append(
-                        priority_result_data.forEach(patient =>
+                    priority_result_data.forEach(patient =>
+                        $('#priority_assign_body').append(
                             '<tr>' +
                             '<td>' + patient.patient_id + '</td>' +
                             '<td>' + patient.patient_name + '</td>' +
-                            col_pripority +
+                            col_pripority + html_btn +
                             '</tr>'
-                        )
-                    );
+                        ));
                 }
 
             }

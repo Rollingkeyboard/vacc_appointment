@@ -23,21 +23,28 @@ if (isset($_SESSION['rem'])) {
     <?php require_once 'public/layouts/nav.php' ?>
 
     <!-- page content -->
-    <div class="container">
         <div class="content">
             <div class="starter-template">
                 <h1 id="wellcome_header"></h1>
-                <div class="jumbotron" style="position: absolute; height: 60%; overflow-y: scroll;">
+                <div class="jumbotron" style="height: 60vh; overflow-y: scroll;">
                     <div class="container">
                         <div class="row">
-                        <h2 id="user_type_header"></h2>
-                        <table id="editableTable" class="table table-bordered">
-                            <thead id="assign_to_table_head">
+                            <h2 id="user_type_header"></h2>
+                            <table id="editableTable" class="table table-bordered">
+                                <thead id="assign_to_table_head">
 
-                            </thead>
-                            <tbody id="main_table">
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody id="main_table">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <table id="priority_assign" class="table table-bordered">
+                                <thead id="priority_assign_head">
+                                </thead>
+                                <tbody id="priority_assign_body">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
