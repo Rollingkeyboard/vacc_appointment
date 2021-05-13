@@ -52,10 +52,12 @@ class Scheduler {
             $query = "
                 INSERT INTO `appointment` (patient_id, pat_id, status)
                 VALUES (".$user.", ".$app["pat_id"].", \"pending\");";
-            print("1 query executed:" . $query . "\n");
-            /*if (!$this->db_conn->query($query)) {
+            // print("1 query executed:" . $query . "\n");
+            //*
+            if (!$this->db_conn->query($query)) {
                 print("Failed inserting: " . $db_conn.error);
-            }*/
+            }
+            //*/
         }
     }
 
