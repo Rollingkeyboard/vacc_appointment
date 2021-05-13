@@ -9,10 +9,10 @@ $(document).ready(function () {
         'onClick="butRowDelete(this);" style="display: block;"><span '+
         'className="glyphicon glyphicon-trash"> X </span></button>'+
         '<button id="bAcep" type="button" className="btn btn-sm btn-default" '+
-        'style="display: none;" onClick="butRowAcep(this);"><span'+
+        'style="display: none;" onClick="butRowAcep(this);"><span '+
         'className="glyphicon glyphicon-ok">  ✓ </span></button>'+
         '<button id="bCanc" type="button" className="btn btn-sm btn-default" '+
-        'style="display: none;" onClick="butRowCancel(this);"><span'+
+        'style="display: none;" onClick="butRowCancel(this);"><span '+
         'className="glyphicon glyphicon-remove"> → </span></button>'+
         '</div>'+
         '</td>' +
