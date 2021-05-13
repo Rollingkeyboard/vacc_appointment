@@ -82,7 +82,7 @@ $(document).ready(function () {
                     $('#user_type_header').text("Patient preferred time slot are below.");
                     $('#wellcome_header').text("Hello, " + u_name + " Welcome To Vaccination Appointment Page ");
                     $('#assign_to_table_head').append(
-                        '<tr><th>Id</th><th>User Id</th><th>Weekday</th><th>Time Block</th><th>Status</th>' +
+                        '<tr><th>Weekday</th><th>Time Block</th><th>Status</th>' +
                         '<th>Action</th>th></tr>'
                     );
                     $.each(result_data, function (key, value) {
@@ -103,7 +103,6 @@ $(document).ready(function () {
                         }
                         $('#main_table').append(
                             '<tr id="row_' + key + '">' +
-                            '<td>' + res_map.get("ppt_id") + '</td><td>' + res_map.get("patient_id") + '</td>' +
                             col_w + col_t + '<td>' + res_map.get("status") + '</td>' + col_acc_dec + html_btn
                             + '</tr>'
                         );
@@ -117,13 +116,13 @@ $(document).ready(function () {
                     $('#user_type_header').text("Provider available time slot are below.");
                     $('#wellcome_header').text("Hello, " + u_name + " Welcome To Vaccination Appointment Page ");
                     $('#assign_to_table_head').append(
-                        '<tr><th>Id</th><th>User Id</th><th>Weekday</th><th>Time Block</th><th>Status</th></tr>'
+                        '<tr><th style="margin: 0;">Available Id</th><th>Weekday</th><th>Time Block</th><th>Status</th></tr>'
                     );
                     $.each(result_data, function (key, value) {
                         const res_map = new Map(Object.entries(value));
                         $('#main_table').append(
                             '<tr id="row_' + key + '">' +
-                            '<td>' + res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id") + '</td>' +
+                            '<td>' + res_map.get("pat_id") + '</td>' +
                             col_w + col_t + '<td>' + res_map.get("status") + '</td>' + html_btn
                             + '</tr>'
                         );
