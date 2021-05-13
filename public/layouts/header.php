@@ -12,6 +12,7 @@
     <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
     <link href= "public/css/start.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/index.css">
     <link rel="stylesheet" type="text/css" href="public/css/footer.css">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
