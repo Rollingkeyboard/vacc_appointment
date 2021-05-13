@@ -95,7 +95,7 @@ class AppointmentTime
                 $patient_return_data = array();
                 $priority_return_data = array();
                 $admin_sql_query = "
-                    SELECT pat.pat_id, p.provider_name, pat.provider_id, pat.w_id, pat.t_id
+                    SELECT pat.pat_id, pat.provider_id, pat.w_id, pat.t_id
                     FROM provider_available_time pat NATURAL JOIN provider p
                     WHERE pat.pat_id NOT IN (SELECT appointment.pat_id FROM appointment
                         WHERE status IN ('pending', 'vaccinated', 'accepted'));
