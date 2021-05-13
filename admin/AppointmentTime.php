@@ -47,9 +47,13 @@ class AppointmentTime
     }
 
     public function get_user_type(){
-            $role_sql_query = "SELECT user_id, role_id
-                        FROM user 
-                        WHERE user_id ='" . $_SESSION['user'] . "';";
+            $role_sql_query = "(SELECT user_id, role_id, patient_name AS user_name
+                        FROM user NATURAL JOIN patient
+                        WHERE user_id ='" . $_SESSION['user'] . "')
+                        UNION
+                        (SELECT user_id, role_id, provider_name AS user_name
+                         FROM user NATURAL JOIN provider
+                         WHERE user_id = '" . $_SESSION['user'] . "');";
             $role_result = $this->db_con->query($role_sql_query);
             $role_row = $role_result->fetch_object();
             $this->user_type = $role_row->role_id;

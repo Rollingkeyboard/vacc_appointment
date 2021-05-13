@@ -1,6 +1,5 @@
 $(document).ready(function () {
     let user_type;
-    let u_id;
     let html_btn = '<td name="buttons">'+
         '<div className="btn-group pull-right">'+
         '<button id="bEdit" type="button" className="btn btn-sm btn-default" '+
@@ -75,12 +74,13 @@ $(document).ready(function () {
         data: {user_id: 'get_user_id', user_type: 'get_user_type'},
         success: function (response) {
             if (response.status) {
-                u_id = response.role_sql_result.user_id;
+                // u_id = response.role_sql_result.user_id;
+                u_name = response.role_sql_result.user_name;
                 user_type = response.role_sql_result.role_id;
                 let result_data = response.time_slot_sql_result;
                 if (user_type === '1') {
                     $('#user_type_header').text("Patient preferred time slot are below.");
-                    $('#wellcome_header').text("Hello, " + u_id + " Welcome To Vaccination Appointment Page ");
+                    $('#wellcome_header').text("Hello, " + u_name + " Welcome To Vaccination Appointment Page ");
                     $('#assign_to_table_head').append(
                         '<tr><th>Id</th><th>User Id</th><th>Weekday</th><th>Time Block</th><th>Status</th>' +
                         '<th>Action</th>th></tr>'
@@ -115,7 +115,7 @@ $(document).ready(function () {
 
                 } else if (user_type === '2') {
                     $('#user_type_header').text("Provider available time slot are below.");
-                    $('#wellcome_header').text("Hello, " + u_id + " Welcome To Vaccination Appointment Page ");
+                    $('#wellcome_header').text("Hello, " + u_name + " Welcome To Vaccination Appointment Page ");
                     $('#assign_to_table_head').append(
                         '<tr><th>Id</th><th>User Id</th><th>Weekday</th><th>Time Block</th><th>Status</th></tr>'
                     );
