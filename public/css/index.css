@@ -1,3 +1,7 @@
 button span {
     color: black;
 }
+
+#assign_to_table_head th {
+    text-align: center;
+}

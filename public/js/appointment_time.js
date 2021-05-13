@@ -147,13 +147,13 @@ $(document).ready(function () {
                     $('#user_type_header').text("Administrator assigned appointment time slot are below.");
                     $('#wellcome_header').text("Hello, Administrator! Welcome To Vaccination Appointment Page ");
                     $('#assign_to_table_head').append(
-                        '<tr><th>Id</th><th>Provider Id</th><th>Weekday</th><th>Time Block</th><th>Assign to patient</th></tr>'
+                        '<tr><th>Available Id</th><th>Provider</th><th>Weekday</th><th>Time Block</th><th>Assign to patient</th></tr>'
                     );
                     $.each(result_data, function (key, value) {
                         const res_map = new Map(Object.entries(value));
                         $('#main_table').append(
                             '<tr id="row_' + key + '">' +
-                            '<td>' + res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id") + '</td>' +
+                            '<td>' + res_map.get("pat_id") + '</td><td>' + res_map.get("provider_id") + '_' + res_map.get("provider_name") + '</td>' +
                             '<td>' + res_map.get("w_id") + '</td>' + '<td>' + res_map.get("t_id") + '</td>'
                             + col_pat_list + html_btn
                             + '</tr>'
