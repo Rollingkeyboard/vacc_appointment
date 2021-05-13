@@ -186,7 +186,7 @@ $( document ).ready(function() {
 		$('#main_table').append(
 			'<tr>' +
 			'<td>'+ 'new appointment' + '</td><td>' + uid + '</td>' +
-			col_w + col_t + '<td>NA</td>' + '<td>-</td>' +
+			col_w + col_t + '<td>N/A</td>' + '<td>-</td>' +
 			html_btn +
 			'</tr>'
 		)

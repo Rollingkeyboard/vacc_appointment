@@ -65,7 +65,7 @@ class AppointmentTime
             {
                 $ppt_sql_query = "
                     SELECT ppt.ppt_id, ppt.patient_id, ppt.w_id, ppt.t_id,
-                           IF(status IS NULL, 'NA', status) AS status
+                           IF(status IS NULL, 'N/A', status) AS status
                     FROM appointment a JOIN provider_available_time pat on a.pat_id = pat.pat_id
                         RIGHT JOIN patient_preferred_time ppt
                             on a.patient_id = ppt.patient_id AND pat.w_id = ppt.w_id AND pat.t_id = ppt.t_id
@@ -79,7 +79,7 @@ class AppointmentTime
             {
                 $_pat_sql_query = "
                     SELECT pat.pat_id, pat.provider_id, pat.w_id, pat.t_id,
-                           IF(status IS NULL, 'NA', status) AS status
+                           IF(status IS NULL, 'N/A', status) AS status
                     FROM provider_available_time pat
                         LEFT JOIN appointment a on pat.pat_id = a.pat_id
                     WHERE pat.provider_id ='" . $_SESSION['user'] . "';";
@@ -153,7 +153,7 @@ class AppointmentTime
 
     public function get_patient_appointment_time()
     {
-        $sql_query = "SELECT ppt_id, patient_id, w_id, t_id, 'NA' AS status 
+        $sql_query = "SELECT ppt_id, patient_id, w_id, t_id, 'N/A' AS status 
                     FROM patient_preferred_time
                     WHERE patient_id = '" . $_SESSION['user']. "';";
         $result = $this->db_con->query($sql_query);
