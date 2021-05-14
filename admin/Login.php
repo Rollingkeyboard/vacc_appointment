@@ -23,9 +23,9 @@ class Login
         //verify db
         $this->db_conn = new mysqli(DB_HOST,DB_USER,DB_PWD,DB_NAME);
 
-		$this->email = $_POST['email'];
-		$this->password = $_POST['password'];
-		$this->code = $_POST['code'];
+        $this->email = htmlentities($_POST['email']);
+        $this->password = htmlentities($_POST['password']);
+        $this->code = htmlentities($_POST['code']);
 		$this->remember_me = $_POST['remember_me'];
 		/**********************************************************************************/
 //        $this->user_type = 1;

@@ -153,16 +153,16 @@ class Register
 	    /*
 	     * user table
 	     */
-		$this->email = $_POST['email'];
-        $this->password = $_POST['password'];
-        $this->confirm_password = $_POST['confirm'];
+		$this->email = htmlentities($_POST['email']);
+        $this->password = htmlentities($_POST['password']);
+        $this->confirm_password = htmlentities($_POST['confirm']);
         $this->user_type = intval($_POST['user_type']);
 
         /*
          * patient table
          */
         if ($this->user_type === 1){
-            $this->ssn = $_POST['ssn'];
+            $this->ssn = htmlentities($_POST['ssn']);
             $this->dob = $_POST['dob'];
             $this->gender = $_POST['gender'];
         }
@@ -172,10 +172,10 @@ class Register
         elseif ($this->user_type === 2){
             $this->provider_type = $_POST['provider_type'];
         }
-		$this->username = $_POST['username'];
-        $this->phone = $_POST['phone'];
-        $this->address = $_POST['address'];
-        $this->max_distance = $_POST['max_distance'];
+        $this->username = htmlentities($_POST['username']);
+        $this->phone = htmlentities($_POST['phone']);
+        $this->address = htmlentities($_POST['address']);
+        $this->max_distance = htmlentities($_POST['max_distance']);
 
         $coordinate_arr = geocode($this->address, true);
         $this->longitude = $coordinate_arr[0];
@@ -183,7 +183,7 @@ class Register
         /*
          * web server feature
          */
-        $this->captcha = $_POST['code'];
+        $this->captcha = htmlentities($_POST['code']);
 
 		$this->check_captcha();
 		$this->check_password();

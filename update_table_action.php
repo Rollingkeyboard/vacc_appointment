@@ -30,7 +30,17 @@ if ($_POST['action'] == 'edit' && $_POST['id']) {
 	    elseif ($_POST['user_type'] === '2')
         {
             $sqlQuery = "UPDATE provider_available_time SET $updateField WHERE pat_id ='" . $_POST['id'] . "';";
-            $update_appo_sql = "";
+            if(isset($_POST['status'])&& !empty($_POST['status'])){
+                $update_appo_sql = "
+                    UPDATE appointment AS a, (
+                        SELECT appointment_id
+                            FROM appointment
+                            WHERE pat_id = '" . $_POST['id'] . "' AND status = 'accepted') AS tar
+                    SET a.status = '" . $_POST['status'] . "'
+                    WHERE a.appointment_id = tar.appointment_id;
+                    ";
+                mysqli_query($mysqli, $update_appo_sql) or die("database error:". mysqli_error($mysqli));
+            }
         }
         elseif ($_POST['user_type'] === '3')
         {

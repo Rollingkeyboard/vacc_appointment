@@ -221,18 +221,20 @@ class Profile
 
     public function update_action()
     {
-        $this->username = $_POST['username'];
-        $this->password = $_POST['password'];
-        $this->confirm_password = $_POST['confirm'];
+        $this->username = htmlentities($_POST['username']);
+        $this->password = htmlentities($_POST['password']);
+        $this->confirm_password = htmlentities($_POST['confirm']);
         $this->dob = $_POST['dob'];
         $this->gender = $_POST['gender'];
-        $this->phone = $_POST['phone'];
-        $this->address = $_POST['address'];
-        $this->max_distance = $_POST['max_distance'];
+        $this->phone = htmlentities($_POST['phone']);
+        $this->address = htmlentities($_POST['address']);
+        $this->max_distance = htmlentities($_POST['max_distance']);
         $this->provider_type = $_POST['provider_type'];
-        $this->longitude = 110;
-        $this->latitude = 42.4;
-        $this->captcha = $_POST['code'];
+
+        $coordinate_arr = geocode($this->address, true);
+        $this->longitude = $coordinate_arr[0];
+        $this->latitude = $coordinate_arr[1];
+        $this->captcha = htmlentities($_POST['code']);
 
 		$this->check_captcha();
         $this->check_password();

@@ -125,6 +125,7 @@ $( document ).ready(function() {
 				  let user_time_block = $(columnsEd[0]).find("select:eq(1)").val();
 				  let user_status = $(columnsEd[0]).find("select:eq(2)").val();
 				  console.log(user_status);
+				  console.log(record_id);
 				  $.ajax({
 					  type: 'POST',
 					  url : "update_table_action.php",
